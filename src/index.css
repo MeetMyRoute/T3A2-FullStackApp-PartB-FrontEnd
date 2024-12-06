@@ -4,7 +4,10 @@
   font-weight: 400;
 
   --primary-color: #e67451;
-  --background-color: #ffffff;
+  --background-color: white;
+  --second-color: #f5e5e3;
+  --third-color: #a86d68;
+  --text-color: black;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -23,10 +26,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
