@@ -83,18 +83,23 @@
 
 /* Desktop view */
 @media (min-width: 1024px) {
+    .home-subtitle {
+        padding: 0;
+    }
+
     .home-buttons {
         flex-direction: row;
     }
 
+    .home-button.sign-up {
+        margin-left: 15px;
+    }
+
     .home-section {
         flex-direction: row;
+        justify-content: space-between;
         text-align: left;
         padding: 40px;
         align-items: center;
-    }
-
-    .home-subtitle {
-        padding: 0;
     }
 }
