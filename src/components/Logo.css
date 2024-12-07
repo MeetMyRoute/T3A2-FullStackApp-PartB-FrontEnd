@@ -1,14 +1,10 @@
 .logo {
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .logo-image {
-    width: 50px;
-    height: auto;
+    width: 75px;
     cursor: pointer;
-    transition: transform 0.3s ease;
 }
 
 .logo-image:hover {
@@ -18,13 +14,13 @@
 /* Tablet view */
 @media (min-width: 768px) {
     .logo-image {
-        width: 75px;
+        width: 120px;
     }
 }
 
 /* Desktop view */
 @media (min-width: 1024px) {
     .logo-image {
-        width: 50px;
+        width: 100px;
     }
 }

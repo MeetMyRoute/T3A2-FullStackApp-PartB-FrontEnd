@@ -1,7 +1,7 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    padding: 5px 20px 0 20px;
+    padding: 10px 20px;
     background-color: var(--primary-color);
     color: var(--text-color);
 }
@@ -11,45 +11,38 @@
     background: none;
     border: none;
     cursor: pointer;
-    display: block;
-    padding-bottom: 10px;
 }
 
 .hamburger {
-    background-color: var(--primary-color);
-    position: relative;
-}
-
-.hamburger::before,
-.hamburger::after {
-    content: \"\";
-    background-color: var(--primary-color);
-    position: absolute;
+    transition: 0.3s;
 }
 
 .navbar-menu {
     display: none;
-    flex-direction: column;
     background-color: var(--second-color);
     position: absolute;
-    top: 8%;
-    left: 0;
+    top: 100px;
+    right: 0;
     width: 100%;
+    padding: 1rem;
 }
 
 .navbar-menu.open {
     display: flex;
+    flex-direction: column;
 }
 
 .navbar-links li {
+    margin: 5px 0;
+    text-align: center;
     list-style: none;
-    padding: 0.1rem;
 }
 
 .navbar-links a {
     text-decoration: none;
     color: var(--text-color);
     font-size: 16px;
+    transition: color 0.3s;
 }
 
 .navbar-links a:hover {
@@ -58,36 +51,34 @@
 
 /* Tablet view */
 @media (min-width: 768px) {
-    .navbar-links {
+    .navbar-menu {
+        position: static;
         display: flex;
-        gap: 2rem;
+        justify-content: center;
+        background: transparent;
+        width: auto;
     }
-
-    .navbar-links li {
-        margin-top: 5px;
-      }
 
     .navbar-toggle {
         display: none;
     }
 
-    .navbar-menu {
+    .navbar-links {
         display: flex;
-        position: static;
-        flex-direction: row;
-        background: none;
-        justify-content: flex-end;
     }
 
+    .navbar-links li {
+        margin: 0 10px;
+      }
+
     .navbar-links a {
-        font-size: 18px;
-    }
+        font-size: 24px;
+    }  
 }
 
 /* Desktop view */
 @media (min-width: 1024px) {
-
-    .navbar-links li {
-        margin: 0 0 5px 0;
-    }
+    .navbar-links a {
+        font-size: 18px;
+    }  
 }
