@@ -1,13 +1,20 @@
 import './App.css'
-import { BrowserRouter as Route, Router, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { NavBar } from './components/NavBar'
 import { Footer } from './components/Footer'
+import { HomePage } from './pages/HomePage'
+import { LoginPage } from './pages/LoginPage'
+import { SignUpPage } from './pages/SignUpPage'
+import { ProfilePage } from './pages/ProfilePage'
+import { ItineraryPage } from './pages/ItineraryPage'
+import { SearchPage } from './pages/SearchPage'
+import { MessagesPage } from './pages/MessagesPage'
 
 function App() {
 
   return (
     <div>
-      {/* <Router>
+      <Router>
         <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -19,7 +26,7 @@ function App() {
           <Route path="/messages" element={<MessagesPage />} />
           <Route path="/logout" element={<HomePage />} />
         </Routes>
-      </Router> */}
+      </Router>
       <Footer />
     </div>
   )

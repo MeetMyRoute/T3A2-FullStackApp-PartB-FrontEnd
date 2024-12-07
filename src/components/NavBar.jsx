@@ -5,6 +5,11 @@ import { Logo } from "./Logo";
 
 export function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuOpen(!menuOpen);
+    }
+
     const location = useLocation();
 
     // Define links based on page location
@@ -39,20 +44,26 @@ export function NavBar() {
     return (
         <nav className="navbar">
             <Logo />
+
+            {/* Hamburger icon */}
             <button
                 className="navbar-toggle"
-                onClick={() => setMenuOpen((prev) => !prev)}
-                aria-label="Toggle Menu"
+                onClick={toggleMenu}
+                aria-label="Toggle menu"
             >
-                ☰
+                <span className="hamburger">☰</span>
             </button>
-            <ul className={`navbar-links ${menuOpen ? "open" : ""}`}>
-                {navLinks.map((link) => (
-                    <li key={link.path}>
-                        <a href={link.path}>{link.label}</a>
-                    </li>
-                ))}
-            </ul>
+
+            {/* Menu links */}
+            <div className={`navbar-menu ${menuOpen ? "open" : ""}`}>
+                <ul className="navbar-links">
+                    {navLinks.map((link) => (
+                        <li key={link.path}>
+                            <a href={link.path}>{link.label}</a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </nav>
     )
 }

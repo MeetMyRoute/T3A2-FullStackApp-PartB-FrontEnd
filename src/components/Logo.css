@@ -4,21 +4,27 @@
     align-items: center;
 }
 
-.logo img {
-    width: 100px;
+.logo-image {
+    width: 50px;
     height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo-image:hover {
+    transform: scale(1.05);
 }
 
 /* Tablet view */
 @media (min-width: 768px) {
-    .logo img {
-        width: 120px;
+    .logo-image {
+        width: 75px;
     }
 }
 
 /* Desktop view */
 @media (min-width: 1024px) {
-    .logo img {
-        width: 150px;
+    .logo-image {
+        width: 50px;
     }
 }
