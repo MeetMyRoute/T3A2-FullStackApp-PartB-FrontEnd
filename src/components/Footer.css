@@ -19,7 +19,7 @@
 
 .footer-by p {
     font-size: 12px;
-    margin-top: 16px;
+    margin-top: 18px;
 }
 
 /* Tablet view */
@@ -29,7 +29,7 @@
     }
 
     .footer-by p {
-        margin-top: 20px;
+        font-size: 14px;
     }
 }
 
@@ -40,7 +40,6 @@
     }
 
     .footer-by p {
-        font-size: 14px;
-        margin-top: 22px;
+        margin-top: 23px;
     }
 }
