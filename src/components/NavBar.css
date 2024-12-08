@@ -13,10 +13,6 @@
     cursor: pointer;
 }
 
-.hamburger {
-    transition: 0.3s;
-}
-
 .navbar-menu {
     display: none;
     background-color: var(--second-color);
@@ -42,7 +38,6 @@
     text-decoration: none;
     color: var(--text-color);
     font-size: 16px;
-    transition: color 0.3s;
 }
 
 .navbar-links a:hover {
