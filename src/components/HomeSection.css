@@ -1,14 +1,16 @@
 .home-section {
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    align-items: center;
     text-align: center;
+    padding: 20px;
     background-color: var(--background-color);
 }
 
 .home-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: bold;
+    color: var(--text-color);
     margin-bottom: 10px;
 }
 
@@ -16,91 +18,71 @@
     font-size: 1rem;
     color: var(--primary-color);
     margin-bottom: 20px;
-    padding: 0 10px;
 }
 
 .home-buttons {
     display: flex;
-    flex-direction: column;
     gap: 10px;
+    justify-content: center;
 }
 
 .home-button {
     padding: 10px 20px;
     font-size: 1rem;
-    border: none;
     border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
-.home-button.login {
+.home-login {
     background-color: var(--second-color);
     color: var(--text-color);
 }
 
-.home-button.login:hover {
-    background-color: var(--primary-color);
-    color: var(--background-color);
-}
-
-.home-button.sign-up {
+.home-signup {
     background-color: var(--third-color);
     color: var(--background-color);
 }
 
-.home-button.sign-up:hover {
+.home-button:hover {
     background-color: var(--primary-color);
-    color: var(--text-color);
-}
-
-.home-image{
-    margin-top: 20px;
 }
 
 .home-image img {
-    max-width: 300px;
+    max-width: 100%;
+    margin-top: 20px;
 }
 
 /* Tablet view */
 @media (min-width: 768px) {
+    .home-section {
+        padding: 40px;
+    }
+
     .home-title {
         font-size: 3rem;
     }
 
     .home-subtitle {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .home-button {
-        font-size: 1.5rem;
-        padding: 12px 30px;
-    }
-
-    .home-image img {
-        max-width: 500px;
+        padding: 15px 30px;
+        font-size: 1.4rem;
     }
 }
 
 /* Desktop view */
 @media (min-width: 1024px) {
-    .home-subtitle {
-        padding: 0;
-    }
-
     .home-buttons {
-        flex-direction: row;
+        gap: 20px;
     }
 
-    .home-button.sign-up {
-        margin-left: 15px;
+    .home-button {
+        font-size: 1.2rem;
     }
 
-    .home-section {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-        padding: 40px;
-        align-items: center;
+    .home-image {
+        max-width: 50%;
     }
 }

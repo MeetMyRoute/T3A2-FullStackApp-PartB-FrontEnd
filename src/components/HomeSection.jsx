@@ -10,8 +10,8 @@ export function HomeSection() {
                     Plan your journey, meet fellow travelers, and adventure together!
                 </p>
                 <div className="home-buttons">
-                    <button className="home-button login">Login</button>
-                    <button className="home-button sign-up">Sign Up</button>
+                    <a href="/login" className="home-button home-login">Login</a>
+                    <a href="/signup" className="home-button home-signup">Sign Up</a>
                 </div>
             </div>
             <div className="home-image">

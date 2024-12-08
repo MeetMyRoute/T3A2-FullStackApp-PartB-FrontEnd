@@ -22,18 +22,23 @@
 /* Tablet view */
 @media (min-width: 768px) {
     .footer-name h2 {
-        font-size: 20px;
+        font-size: 24px;
+    }
+
+    .footer-by p {
+        font-size: 16px;
+        margin-top: 23px;
     }
 }
 
 /* Desktop view */
 @media (min-width: 1024px) {
-    .footer-name h2 {
-        font-size: 24px;
-    }
-
     .footer-by p {
         font-size: 14px;
         margin-top: 23px;
+    }
+
+    .footer {
+        position: relative;
     }
 }
