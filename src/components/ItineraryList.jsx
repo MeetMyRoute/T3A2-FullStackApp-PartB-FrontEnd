@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ItineraryList.css";
 import axios from "axios";
+import { API } from "../api";
 
 export function ItineraryList() {
     const [itineraries, setItineraries] = useState([]);
@@ -9,7 +10,7 @@ export function ItineraryList() {
     useEffect(() => {
         const fetchItineraries = async() => {
             try {
-                const response = await axios.get("https://meetmyroute-api/itineraries")
+                const response = await axios.get(API + "/itinerary");
             }
         }
     })
