@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ItineraryForm.css";
 import axios from "axios";
+import { DateSelector } from "./DateSelector";
 
 const API = import.meta.env.API_URL;
 
@@ -46,6 +47,16 @@ export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
         setFormData((prev) => ({...prev, activities: updatedActivities}));
     }
 
+    const handleDateChange = (startDate, endDate) => {
+        setFormData((prev) => ({
+            ...prev,
+
+            // Format to YYYY-MM-DD
+            startDate: startDate ? startDate.toISOString().split("T")[0] : "",
+            endDate: endDate ? endDate.toISOString().split("T")[0] : ""
+        }));
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
@@ -69,11 +80,11 @@ export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
             <label>Destination:</label>
             <input name="destination" type="text" value={formData.destination} onChange={handleChange} required />
 
-            <label>Start Date:</label>
-            <input name="startDate" type="date" value={formData.startDate} onChange={handleChange} required />
-
-            <label>End Date:</label>
-            <input name="endDate" type="date" value={formData.endDate} onChange={handleChange} required />
+            <DateSelector
+                startDate={formData.startDate ? new Date(formData.startDate) : null}
+                endDate={formData.endDate ? new Date(formData.endDate) : null}
+                onDateChange={handleDateChange}
+            />
 
             <label>Accommodation:</label>
             <input name="accommodation" type="text" value={formData.accommodation} onChange={handleChange} />
