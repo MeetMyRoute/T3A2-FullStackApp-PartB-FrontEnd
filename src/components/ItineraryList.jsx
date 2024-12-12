@@ -9,6 +9,8 @@ export function ItineraryList() {
     const [itineraries, setItineraries] = useState([]);
     const [selectedItinerary, setSelectedItinerary] = useState(null);
     const [showEditForm, setShowEditForm] = useState(false);
+
+    // Toggle state
     const [isDetailedView, setIsDetailedView] = useState(true);
 
     // Fetch itineraries from API
@@ -64,7 +66,7 @@ export function ItineraryList() {
                     onCancel={() => setShowEditForm(false)}
                 />
             ) : (
-                
+
                 <div className="itinerary-cards">
                     {itineraries.map((itinerary) => (
                         <div key={itinerary.id} className="itinerary-card">
