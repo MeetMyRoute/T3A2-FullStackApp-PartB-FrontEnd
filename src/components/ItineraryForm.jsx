@@ -77,8 +77,9 @@ export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
         <form className="itinerary-form" onSubmit={handleSubmit}>
             <h2>{selectedItinerary ? "Edit Itinerary" : "Add Itinerary"}</h2>
 
-            <label>Destination:</label>
-            <input name="destination" type="text" value={formData.destination} onChange={handleChange} required />
+
+            <label htmlFor="destination">Destination:</label>
+            <input id="destination" name="destination" type="text" value={formData.destination} onChange={handleChange} required />
 
             <DateSelector
                 startDate={formData.startDate ? new Date(formData.startDate) : null}
@@ -86,8 +87,8 @@ export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
                 onDateChange={handleDateChange}
             />
 
-            <label>Accommodation:</label>
-            <input name="accommodation" type="text" value={formData.accommodation} onChange={handleChange} />
+            <label htmlFor="accommodation">Accommodation:</label>
+            <input id="accommodation" name="accommodation" type="text" value={formData.accommodation} onChange={handleChange} />
 
             <label>Activities:</label>
             {formData.activities.map((activity, index) => (
