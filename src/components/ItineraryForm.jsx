@@ -77,7 +77,6 @@ export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
         <form className="itinerary-form" onSubmit={handleSubmit}>
             <h2>{selectedItinerary ? "Edit Itinerary" : "Add Itinerary"}</h2>
 
-
             <label htmlFor="destination">Destination:</label>
             <input id="destination" name="destination" type="text" value={formData.destination} onChange={handleChange} required />
 
