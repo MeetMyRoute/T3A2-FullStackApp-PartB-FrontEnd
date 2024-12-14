@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { DateSelector } from "./DateSelector";
+import "./SearchAndFilter.css";
 
 const API = import.meta.env.API_URL;
 
@@ -44,7 +45,7 @@ export function SearchAndFilter() {
             <div className="search-container">
 
                 {/* Destination input */}
-                <labe htmlFor="destination">Destination:</label>
+                <label htmlFor="destination">Destination:</label>
                 <input
                     type="text"
                     id="destination"
