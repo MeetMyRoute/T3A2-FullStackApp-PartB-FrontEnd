@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { DateSelector } from "./DateSelector";
 import "./SearchAndFilter.css";
+import defaultProfile from "../assets/default-profile.jpg";
 
 const API = import.meta.env.API_URL;
 
@@ -26,7 +27,8 @@ export function SearchAndFilter() {
                     endDate: endDate ? endDate.toISOString() : undefined
                 }
             });
-            setResults(res.data);
+            const data = res.data.data;
+            setResults(data);
         } catch(error) {
             setError("Failed to fetch search results. Please try again");
         } finally {
@@ -60,10 +62,11 @@ export function SearchAndFilter() {
                     startDate={startDate}
                     endDate={endDate}
                     onDateChange={handleDateChange}
+                    required
                 />
 
                 {/* Search button */}
-                <button onClick={handleSearch} disabled={loading}>
+                <button onClick={handleSearch} disabled={loading || !destination || !startDate || !endDate}>
                     {loading ? "Searching..." : "Search"}
                 </button>
 
@@ -76,12 +79,17 @@ export function SearchAndFilter() {
                 {results.length === 0 && !loading && <p>No results found</p>}
                 {results.map((result, index) => (
                     <div key={index} className="result-card">
-                        <img src={result.profilePicture || "default-profile.png"} alt="Profile" className="profile-picture" />
+                        <img src={result.profilePic || {defaultProfile}} alt="Profile" className="profile-picture" />
                         <div className="result-details">
-                            <h3>{result.name}</h3>
-                            <p>{result.location}</p>
-                            <p>Destination: {result.itinerary.destination}</p>
-                            <p>Travel Dates: {result.itinerary.startDate} - {result.itinerary.endDate}</p>
+                            <h3>{result.user}</h3>
+                            <p>Status: {result.status}</p>
+                            {result.location && <p>Location: {result.location}</p>}
+                            {result.destination && (
+                                <>
+                                    <p>Destination: {result.destination}</p>
+                                    <p>Travel Dates: {new Date(result.startDate).toLocaleDateString()} - {new Date(result.endDate).toLocaleDateString()}</p>
+                                </>
+                            )}
                             <button>View Profile</button>
                         </div>
                     </div>
