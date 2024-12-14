@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const defaultProfileData = {
     name: "",
@@ -7,7 +8,7 @@ export const defaultProfileData = {
     profilePic: "",
     travelGoalsAndPreferences: "",
     socialMediaLink: ""
-};
+}
 
 // Create the context
 const ProfileDataContext = createContext(defaultProfileData);
@@ -17,34 +18,37 @@ const ProfileDataSetterContext = createContext(null);
 export function useProfileContext() {
     console.log("Passing data around");
     return useContext(ProfileDataContext);
-};
+}
 
 export function useProfileContextSetter() {
     return useContext(ProfileDataSetterContext);
-};
+}
 
-// Create the context provider
+// Create the profile context provider
 export default function ProfileProvider(props) {
     let [profileData, setProfileData] = useState(defaultProfileData);
 
     let {userAuthData} = useUserAuthContext();
 
+    // Fetch the profile date from the API
     async function fetchProfileData(accessToken, userId) {
-        const result = await fetch(
-            `/profile/${userId}`, // need to fix
-            {
-                method: "GET",
+        const API = import.meta.env.API_URL;
+        try {
+            const result = await axios.get(`${API}profile/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`
                 }
-            }
-        )
-        return await result.json();
+            });
+            return result.data;
+        } catch (error) {
+            console.log("Error fetching user profile: ", error);
+        }
     };
 
+    // Fetch the profile data when userAuth data changes
     useEffect(() => {
-        if (userAuthData && userAuthData.userJwt) {
-            fetchProfileData(userAuthData.userJwt)
+        if (userAuthData && userAuthData.userJwt && userId) {
+            fetchProfileData(userAuthData.userJwt, userId)
             .then(profileData => setProfileData(profileData));
         }
     }, [userAuthData]);
@@ -56,4 +60,4 @@ export default function ProfileProvider(props) {
             </ProfileDataSetterContext.Provider>
         </ProfileDataContext.Provider>
     )
-};
+}
