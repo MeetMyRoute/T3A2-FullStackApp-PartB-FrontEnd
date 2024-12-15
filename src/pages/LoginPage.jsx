@@ -1,7 +1,10 @@
 import React from "react";
+import { LoginForm } from "../components/LoginForm";
 
 export function LoginPage() {
-    return (
-        <h1>Login Page</h1>
-    )
+  return (
+    <div>
+      <LoginForm/>
+    </div>
+  );
 }
