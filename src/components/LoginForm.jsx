@@ -30,7 +30,7 @@ export function LoginForm() {
 return (
   <div className="login-main">
     <div className="login-center">
-      <h2>Welcome back!</h2>
+      <h2>Hi!</h2>
       <p>Please enter your details to sign in.</p>
       <form onSubmit={handleLogin}>
         <div className="mb-3">
@@ -39,7 +39,7 @@ return (
             type="email" 
             className="form-control" 
             id="email"
-            placeholder="Enter your email..."
+            placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required 
@@ -52,7 +52,7 @@ return (
               type="password"
               className="form-control" 
               id="password"
-              placeholder="Enter your password..."
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
