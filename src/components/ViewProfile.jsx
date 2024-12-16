@@ -4,13 +4,13 @@ export default function ViewProfile({profileData}) {
     if (profileData.name) {
         return (
             <div className="profileView">
-                <div className="profileViewLeft">
+                <section className="profileViewLeft">
                     <h1 id="viewName">{profileData.name}</h1>
                     <h2 id="viewLocation">{profileData.location}</h2>
                     {profileData.profilePic && <img src={profileData.profilePic} alt="Profile Picture" id="viewProfilePic" />}
                     <h3 id="viewStatus">{profileData.status}</h3>
-                </div>
-                <div className="profileViewRight">
+                </section>
+                <section className="profileViewRight">
                     {profileData.travelPreferencesAndGoals.length > 0 ?
                     <div className="viewTravelPrefAndGoals"> 
                         <p>Travel Preferences & Goals:</p>
@@ -22,7 +22,7 @@ export default function ViewProfile({profileData}) {
                     </div> :
                     null}
                     {profileData.socialMediaLink && <a id="viewSocialMedia"href={profileData.socialMediaLink}>{profileData.socialMediaLink}</a>} <br />
-                </div>
+                </section>
             </div>
         )
     } else {
