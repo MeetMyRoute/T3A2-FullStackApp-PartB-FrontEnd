@@ -1,62 +1,55 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-export const defaultProfileData = {
+// Initialise the default profile data structure
+export const initialiseProfileData = {
     name: "",
     location: "",
     status: "",
     profilePic: "",
-    travelGoalsAndPreferences: "",
+    travelPreferencesAndGoals: [],
     socialMediaLink: ""
 }
 
-// Create the context
-const ProfileDataContext = createContext(defaultProfileData);
+// Create the context for profile data and setter function
+const ProfileDataContext = createContext(initialiseProfileData);
 const ProfileDataSetterContext = createContext(null);
 
-// Create custom hooks to access the context data
-export function useProfileContext() {
-    console.log("Passing data around");
+// Create custom hooks to access the profile data and setter function from the context
+export function useProfileData() {
     return useContext(ProfileDataContext);
 }
 
-export function useProfileContextSetter() {
+export function useProfileDataSetter() {
     return useContext(ProfileDataSetterContext);
 }
 
-// Create the profile context provider
-export default function ProfileProvider(props) {
-    let [profileData, setProfileData] = useState(defaultProfileData);
+// Create the profile data context provider
+export function ProfileDataProvider({userId, children}) {
+    const [profileData, setProfileData] = useState(initialiseProfileData);
 
-    let {userAuthData} = useUserAuthContext();
-
-    // Fetch the profile date from the API
-    async function fetchProfileData(accessToken, userId) {
+    // Fetch the profile data from the API
+    async function fetchAndSetProfileData(userId) {
         const API = import.meta.env.API_URL;
         try {
-            const result = await axios.get(`${API}profile/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`
-                }
-            });
-            return result.data;
+            const result = await axios.get(`${API}/profile/${userId}`);
+
+            // Set the result profile data into the state 
+            setProfileData(result);
         } catch (error) {
-            console.log("Error fetching user profile: ", error);
+            console.log("Error fetching user profile:", error);
         }
     };
 
-    // Fetch the profile data when userAuth data changes
+    // Fetch the profile data and set the result into the state when the userId changes
     useEffect(() => {
-        if (userAuthData && userAuthData.userJwt && userId) {
-            fetchProfileData(userAuthData.userJwt, userId)
-            .then(profileData => setProfileData(profileData));
-        }
-    }, [userAuthData]);
+        fetchAndSetProfileData(userId)
+    }, [userId])
 
     return (
         <ProfileDataContext.Provider value={profileData}>
             <ProfileDataSetterContext.Provider value={setProfileData}>
-                {props.children}
+                {children}
             </ProfileDataSetterContext.Provider>
         </ProfileDataContext.Provider>
     )
