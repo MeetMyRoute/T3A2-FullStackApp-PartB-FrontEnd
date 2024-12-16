@@ -1,24 +1,20 @@
 import React from "react";
-import { useContext } from "react";
-import ProfileContext from "../contexts/ProfileContext"
+import { useProfileData } from "../contexts/ProfileContext"
+import ProfileContainer from "../components/ProfileContainer";
 
 export function ProfilePage() {
-    let profile = useContext(ProfileContext);
-
-    return (
-        <div>
-            <h1>Profile Page</h1>
-            <h2>{profile.name}</h2>
-            <h3>{profile.location}</h3>
-            <img src={profile.profilePic} alt="Profile picture" />
-            <h4>{profile.status}</h4>
-            <h4>Travel Goals & Preferences</h4>
-            <p>{profile.travelGoalsAndPreferences}</p>
-            <h4>Social Media</h4>
-        </div>
-    )
+    let profileData = useProfileData();
+    if (profileData._id) {
+        return (
+            <div>
+                <ProfileContainer />
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <h3 className="error">Error in loading profile, please try again.</h3>
+            </div>
+        )
+    }
 }
-
-// export function ProfilePage() {
-//     return <h1>Profile Page</h1>
-// }
