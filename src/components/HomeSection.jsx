@@ -1,5 +1,6 @@
 import React from "react";
 import "./HomeSection.css";
+import homeImage from "../assets/home-image.jpg";
 
 export function HomeSection() {
     return (
@@ -15,7 +16,7 @@ export function HomeSection() {
                 </div>
             </div>
             <div className="home-image">
-                <img src="src/assets/home-image.jpg" alt="Travel illustration" />
+                <img src={homeImage} alt="Travel illustration" />
             </div>
         </section>
     )

@@ -1,7 +1,10 @@
 import React from "react";
+import { SearchAndFilter } from "../components/SearchAndFilter";
 
 export function SearchPage() {
     return (
-        <h1>Search Page</h1>
+        <div>
+            <SearchAndFilter />
+        </div>
     )
 }

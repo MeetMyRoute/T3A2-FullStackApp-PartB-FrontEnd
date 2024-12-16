@@ -1,7 +1,6 @@
 .navbar {
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
     padding: 10px 20px;
     background-color: var(--primary-color);
     color: var(--text-color);
@@ -17,35 +16,25 @@
 }
 
 .hamburger {
-    /* width: 24px; */
-    /* height: 3px; */
     background-color: var(--primary-color);
-    /* position: relative; */
-    /* transition: all 0.3s ease; */
 }
 
 .navbar-menu {
     display: none;
-    /* flex-direction: column; */
     background-color: var(--second-color);
     position: absolute;
     top: 100px;
     left: 0;
     right: 0;
-    /* width: 100%; */
     padding: 1rem;
-    /* transform: translateY(-100%); */
-    /* transition: transform 0.3s ease; */
 }
 
 .navbar-menu.open {
     display: flex;
     flex-direction: column;
-    /* transform: translateY(0); */
 }
 
 .navbar-links {
-    /* list-style: none; */
     padding: 0;
     margin: 0;
 }
