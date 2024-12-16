@@ -10,6 +10,7 @@ export function LoginForm() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -22,8 +23,18 @@ export function LoginForm() {
       localStorage.setItem('authToken', token);
       
       navigate("/itinerary");
+
+      setErrorMessage(""); 
+
     } catch (error) {
       console.error("Login failed:", error);
+      if (error.response && error.response.status === 404) {
+        setErrorMessage("Sorry, no user found with this email. Please check your login details."); 
+      } else if (error.response && error.response.status === 401) {
+        setErrorMessage("Incorrect password. Please try again.")
+      } else {
+        setErrorMessage("Something went wrong. Please try again later.")
+      }
     }
   }
 
@@ -32,6 +43,9 @@ return (
     <div className="login-center">
       <h2>Hi!</h2>
       <p>Please enter your details to sign in.</p>
+
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      
       <form onSubmit={handleLogin}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label"></label>
