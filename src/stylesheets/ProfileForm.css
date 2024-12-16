@@ -26,8 +26,7 @@ input, select {
 
 .removeTravelPrefAndGoalsButton,
 .addTravelPrefAndGoalsButton,
-.submitButton,
-.cancelButton {
+.submitButton {
     background-color: var(--primary-color);
     color: var(--text-color);
     font-family: inherit;
@@ -45,8 +44,7 @@ input, select {
     margin-left: 0.5em;
 }
 
-.submitButton,
-.cancelButton {
+.submitButton {
     padding: 8px 16px;
     margin: 16px;
     margin-left: 5px;
@@ -55,25 +53,15 @@ input, select {
 
 .removeTravelPrefAndGoalsButton:hover,
 .addTravelPrefAndGoalsButton:hover,
-.submitButton:hover,
-.cancelButton:hover {
+.submitButton:hover {
     background-color: var(--third-color);
 }
 
 /* Tablet view */
 @media (min-width: 768px) {
-    .profileView {
-        font-size: large;
-    }
-
     #profilePicPreview {
         max-width: 50dvw;
         max-height: 15em;
-    }
-
-    .submitButton,
-    .cancelButton {
-        font-size: 19px;
     }
 }
 
@@ -83,9 +71,7 @@ input, select {
         display: flex;
         align-items: center;
         gap: 0.3em; 
-        font-size: large;
     }
-
 
     label, input {
         margin: 0;
