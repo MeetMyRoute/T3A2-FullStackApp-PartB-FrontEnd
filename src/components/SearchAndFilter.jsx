@@ -90,7 +90,9 @@ export function SearchAndFilter() {
                                     <p>Travel Dates: {new Date(result.startDate).toLocaleDateString()} - {new Date(result.endDate).toLocaleDateString()}</p>
                                 </>
                             )}
+                            {/* Update when profile and message features are merged */}
                             <button>View Profile</button>
+                            <button>Message</button>
                         </div>
                     </div>
                 ))}
