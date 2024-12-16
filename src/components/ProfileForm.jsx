@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "../stylesheets/ProfileForm.css"
-import { useProfileData } from "../contexts/ProfileContext";
 import { convertImageToBase64 } from '../utils/imageUtils'
 
 const API = import.meta.env.API_URL;
 
-export default function ProfileForm() {
-    const profileData = useProfileData();
-
+export default function ProfileForm({profileData}) {
     const [tempProfileData, setTempProfileData] = useState({});
 
     const handleChange = async (e) => {
