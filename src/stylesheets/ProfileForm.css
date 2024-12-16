@@ -1,0 +1,103 @@
+.profileForm {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--background-color);
+    margin: 1em;
+    font-family: inherit;
+}
+
+label, input, select {
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    text-align: center;
+}
+
+input, select {
+    padding: 0.3em;
+    width: 30dvw;
+}
+
+#profilePicPreview {
+    max-width: 80dvw;
+    max-height: 15em;
+}
+
+.removeTravelPrefAndGoalsButton,
+.addTravelPrefAndGoalsButton,
+.submitButton,
+.cancelButton {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: inherit;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.removeTravelPrefAndGoalsButton,
+.addTravelPrefAndGoalsButton {
+    padding: 5px 5px;
+}
+
+.removeTravelPrefAndGoalsButton {
+    margin-left: 0.5em;
+}
+
+.submitButton,
+.cancelButton {
+    padding: 8px 16px;
+    margin: 16px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.removeTravelPrefAndGoalsButton:hover,
+.addTravelPrefAndGoalsButton:hover,
+.submitButton:hover,
+.cancelButton:hover {
+    background-color: var(--third-color);
+}
+
+/* Tablet view */
+@media (min-width: 768px) {
+    .profileView {
+        font-size: large;
+    }
+
+    #profilePicPreview {
+        max-width: 50dvw;
+        max-height: 15em;
+    }
+
+    .submitButton,
+    .cancelButton {
+        font-size: 19px;
+    }
+}
+
+/* Desktop view */
+@media (min-width: 1024px) {
+    .profileForm {
+        display: flex;
+        align-items: center;
+        gap: 0.3em; 
+        font-size: large;
+    }
+
+
+    label, input {
+        margin: 0;
+    }
+
+    input, select {
+    font-size: medium;
+    padding: 0.3em
+    }
+
+    #profilePicPreview {
+        max-width: 35dvw;
+        max-height: 20em;
+    }
+}
