@@ -76,7 +76,7 @@ return (
                 <Link to="/forgot-password">Forgot your password?</Link>
               </p>
               <p className="login-bottom-p">
-                Don&#39;t have an account? <Link to="/register">Sign Up!</Link>
+                Don&#39;t have an account? <Link to="/signup">Sign Up!</Link>
               </p>
             </div>
           </div>
