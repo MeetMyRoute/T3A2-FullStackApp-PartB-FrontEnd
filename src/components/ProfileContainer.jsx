@@ -9,10 +9,13 @@ export default function ProfileContainer() {
     let profileData = useProfileData();
 
     if (isEditing) {
-        return <div className="profileContainer">
-            <ProfileForm profileData={profileData} />
-            <button className="cancelButton" onClick={() => setIsEditing(false)}>Cancel</button>
-        </div>
+        return (
+            <div className="profileContainer">
+                <button className="backButton" onClick={() => setIsEditing(false)}>Back</button>
+                <ProfileForm profileData={profileData} />
+            </div>
+        ) 
+        
     } else {
         return <div className="profileContainer">
             <ViewProfile profileData={profileData} />
