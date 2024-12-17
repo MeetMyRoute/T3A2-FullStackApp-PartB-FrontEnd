@@ -1,12 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../contexts/UserContext"; 
 import '../stylesheets/LoginForm.css';
 
-// const API = import.meta.env.VITE_API_URL;  
+// const API = import.meta.env.API_URL;  
 
 export function LoginForm() {
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,16 +17,21 @@ export function LoginForm() {
   async function handleLogin(e) {
     e.preventDefault();
     try {
-      const requestBody = { email, password };
-      const response = await axios.post("http://localhost:4000/user/login", requestBody); 
+      const requestBody = { 
+        email: email, 
+        password: password
+      };
 
-      // If login is successful, store the token
-      const { token } = response.data;
-      localStorage.setItem('authToken', token);
-      
-      navigate("/itinerary");
+      const response = await axios.post("http://localhost:4000/user/login", requestBody); 
+      // const response = await axios.post(`${API}user/login`, requestBody);
+
+      const { token, userId, userData } = response.data;
+
+      login({ token, userId, ...userData });
 
       setErrorMessage(""); 
+      
+      navigate(`/profile/${userId}`);
 
     } catch (error) {
       console.error("Login failed:", error);
@@ -87,5 +94,5 @@ return (
       </form>
     </div>
   </div>
-);
+  );
 } 
