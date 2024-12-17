@@ -52,14 +52,14 @@ export function NavBar() {
         case "/profile":
         case "/itinerary":
         case "/search":
-        case "/messages":
+        case "/connects":
             navLinks = (
                 <ul className="navbar-links">
                     <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
                     <li><Link to="/itinerary" onClick={closeMenu}>Itinerary</Link></li>
                     <li><Link to="/search" onClick={closeMenu}>Search</Link></li>
-                    <li><Link to="/messages" onClick={closeMenu}>Messages</Link></li>
-                    <li><Link to="/logout" onClick={closeMenu}>Logout</Link></li>
+                    <li><Link to="/connects" onClick={closeMenu}>Connects</Link></li>
+                    <li><Link to="/" onClick={closeMenu}>Logout</Link></li>
                 </ul>
             )
             break;

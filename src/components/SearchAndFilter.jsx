@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { DateSelector } from "./DateSelector";
 import "./SearchAndFilter.css";
 import defaultProfile from "../assets/default-profile.jpg";
+import { ConnectButton } from "./ConnectButton";
 
 const API = import.meta.env.API_URL;
 
@@ -87,12 +88,14 @@ export function SearchAndFilter() {
                             {result.destination && (
                                 <>
                                     <p>Destination: {result.destination}</p>
-                                    <p>Travel Dates: {new Date(result.startDate).toLocaleDateString()} - {new Date(result.endDate).toLocaleDateString()}</p>
+                                    <p>
+                                        Travel Dates: {new Date(result.startDate).toLocaleDateString()} - {new Date(result.endDate).toLocaleDateString()}
+                                    </p>
                                 </>
                             )}
-                            {/* Update when profile and message features are merged */}
+                            {/* Update when profile feature is merged */}
                             <button>View Profile</button>
-                            <button>Message</button>
+                            <ConnectButton recipientId={user.userId} recipientName={user.user} />
                         </div>
                     </div>
                 ))}
