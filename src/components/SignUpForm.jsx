@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../stylesheets/SignUpForm.css';
+
+// const API = import.meta.env.API_URL;  
 
 export const SignUpForm = () => {
     const [formData, setFormData] = useState({
@@ -12,10 +15,13 @@ export const SignUpForm = () => {
         travelPreferencesAndGoals: "",
         socialMediaLink: "",
         isAdmin: false,
+        profilePic: null,
     });
 
     const [error, setError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({
@@ -32,14 +38,22 @@ export const SignUpForm = () => {
         }
 
         // Validate password
-        const passwordRegex = /^(?=.*[A-Z]).{11,}$/;
+        const passwordRegex = /^(?=.*\d).{11,}$/;
         if (!passwordRegex.test(formData.password)) {
-            setPasswordError("Password must be at least 11 characters long and contain at least one uppercase letter.");
+            setPasswordError("Password must be at least 11 characters long and contain at least one numeral.");
             return;
         }
 
         setError("");
-        setPasswordError("");
+        setPasswordError("");    
+
+        // Ensure socialMediaLink has protocol
+        if (formData.socialMediaLink && !/^https?:\/\//.test(formData.socialMediaLink)) {
+            setError("Social media link must start with http:// or https://");
+            return;
+        }
+
+        setError("");
 
         try {
             // Create FormData to send both file and text
@@ -52,20 +66,28 @@ export const SignUpForm = () => {
             data.append("travelPreferencesAndGoals", formData.travelPreferencesAndGoals);
             data.append("socialMediaLink", formData.socialMediaLink);
             data.append("isAdmin", formData.isAdmin);
-            if (formData.profilePicture) {
-                data.append("profilePicture", formData.profilePicture);
+            if (formData.profilePic) {
+                data.append("profilePic", formData.profilePic);
             }
     
             // Send FormData to the backend
-            const response = await axios.post("http://localhost:4000/user", data, {
+            const response = await axios.post("http://localhost:4000/user/", data, {
                 headers: {
                     "Content-Type": "multipart/form-data", 
                 },
             });
+
+            // const response = await axios.post(`${API}user/`, data, {
+            //     headers: {
+            //         "Content-Type": "multipart/form-data", 
+            //     },
+            // });
     
             if (response.status === 201) {
                 alert("Registration successful");
+                navigate(`/login`);
             }
+
         } catch (err) {
             if (err.response) {
                 setError(err.response.data.message || "Registration failed.");
@@ -120,9 +142,9 @@ export const SignUpForm = () => {
                         onChange={handleChange}
                     >
                         <option value="">Select status</option>
-                        <option value="travelling">Travelling</option>
-                        <option value="local">Local</option>
-                        <option value="private">Private</option>
+                        <option value="Travelling">Travelling</option>
+                        <option value="Local">Local</option>
+                        <option value="Private">Private</option>
                     </select>
                 </div>
                 <div>
