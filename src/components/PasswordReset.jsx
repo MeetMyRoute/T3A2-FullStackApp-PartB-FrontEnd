@@ -110,8 +110,14 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="container">
-      <h1>{step === "forget" ? "Forget Password" : "Reset Password"}</h1>
+    <div className="forget-reset-page">
+      <h1>{step === "forget" ? "Forget Password?" : "Reset Password"}</h1>
+
+      {step === "forget" && (
+        <p className="instruction-text">
+          Enter your email address, and we&apos;ll send you a reset token to help you set a new password.
+        </p>
+      )}
 
       {message && <p className="message">{message}</p>}
 
