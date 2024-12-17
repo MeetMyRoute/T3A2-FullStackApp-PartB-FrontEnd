@@ -6,6 +6,7 @@
     background-color: var(--background-color);
     margin: 1em;
     margin-top: 0.2em;
+    /* overflow: auto;  */
 }
 
 .profileViewLeft,
@@ -40,13 +41,19 @@
     margin-top: 0.1em;
 }
 
-#viewSocialMedia {
-    color: var(--text-color);
-    cursor: pointer;
+.itineraryDestination {
+    margin: 0.2em;
 }
 
-#viewSocialMedia:hover {
-    color: var(--third-color);
+.itineraryDates {
+    margin: 0.2em;
+    margin-bottom: 0.5em;
+}
+
+#viewSocialMedia {
+    margin-top: 1em;
+    color: var(--text-color);
+    cursor: pointer;
 }
 
 .editButton,
@@ -62,7 +69,7 @@
 }
 .editButton:hover,
 .messageButton:hover {
-    background-color: var(--third-color);
+    background-color: var(--second-color);
 }
 
 .error {
@@ -95,7 +102,7 @@
     }
 
     #viewProfilePic {
-        max-width: 35dvw;
+        max-width: 30dvw;
         max-height: 20em;
     }
 }
