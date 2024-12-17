@@ -3,12 +3,15 @@ import axios from "axios";
 
 // Initialise the default profile data structure
 export const initialiseProfileData = {
+    id: "",
     name: "",
     location: "",
     status: "",
     profilePic: "",
     travelPreferencesAndGoals: [],
-    socialMediaLink: ""
+    socialMediaLink: "",
+    itineraries: []
+
 }
 
 // Create the context for profile data and setter function
