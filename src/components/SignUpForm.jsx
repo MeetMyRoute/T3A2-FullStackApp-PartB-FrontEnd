@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import '../stylesheets/SignUpForm.css';
 
 export const SignUpForm = () => {
     const [formData, setFormData] = useState({
@@ -33,7 +34,7 @@ export const SignUpForm = () => {
         // Validate password
         const passwordRegex = /^(?=.*[A-Z]).{11,}$/;
         if (!passwordRegex.test(formData.password)) {
-            setPasswordError("Password must have at least one capital letter and be 11 characters long.");
+            setPasswordError("Password must be at least 11 characters long and contain at least one uppercase letter.");
             return;
         }
 
@@ -41,23 +42,42 @@ export const SignUpForm = () => {
         setPasswordError("");
 
         try {
-          const response = await axios.post("http://localhost:4000/user", formData);
-          
-          if (response.status === 200) {
-              alert("Registration successful");
-          }
-      } catch (err) {
-          if (err.response) {
-              setError(err.response.data.message || "Registration failed.");
-          } else {
-              setError("An error occurred. Please try again.");
-          }
-      }
-    };
+            // Create FormData to send both file and text
+            const data = new FormData();
+            data.append("name", formData.name);
+            data.append("email", formData.email);
+            data.append("password", formData.password);
+            data.append("status", formData.status);
+            data.append("location", formData.location);
+            data.append("travelPreferencesAndGoals", formData.travelPreferencesAndGoals);
+            data.append("socialMediaLink", formData.socialMediaLink);
+            data.append("isAdmin", formData.isAdmin);
+            if (formData.profilePicture) {
+                data.append("profilePicture", formData.profilePicture);
+            }
+    
+            // Send FormData to the backend
+            const response = await axios.post("http://localhost:4000/user", data, {
+                headers: {
+                    "Content-Type": "multipart/form-data", 
+                },
+            });
+    
+            if (response.status === 201) {
+                alert("Registration successful");
+            }
+        } catch (err) {
+            if (err.response) {
+                setError(err.response.data.message || "Registration failed.");
+            } else {
+                setError("An error occurred. Please try again.");
+            }
+        }
+};
 
     return (
-        <div>
-            <h2>Sign Up</h2>
+        <div className="signup-form">
+            <h2>Create an Account</h2>
             <form onSubmit={handleSubmit}>
                 {error && <div className="error">{error}</div>}
                 <div>
@@ -68,7 +88,6 @@ export const SignUpForm = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="First and Last Name"
                     />
                 </div>
                 <div>
@@ -79,7 +98,6 @@ export const SignUpForm = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="Enter your email"
                     />
                 </div>
                 <div>
@@ -90,7 +108,6 @@ export const SignUpForm = () => {
                         name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        placeholder="Enter your password"
                     />
                     {passwordError && <div className="error">{passwordError}</div>}
                 </div>
@@ -103,7 +120,7 @@ export const SignUpForm = () => {
                         onChange={handleChange}
                     >
                         <option value="">Select status</option>
-                        <option value="traveling">Traveling</option>
+                        <option value="travelling">Travelling</option>
                         <option value="local">Local</option>
                         <option value="private">Private</option>
                     </select>
@@ -116,7 +133,6 @@ export const SignUpForm = () => {
                         name="location"
                         value={formData.location}
                         onChange={handleChange}
-                        placeholder="Enter your location"
                     />
                 </div>
                 <div>
@@ -126,8 +142,17 @@ export const SignUpForm = () => {
                         name="travelPreferencesAndGoals"
                         value={formData.travelPreferencesAndGoals}
                         onChange={handleChange}
-                        placeholder="Describe your travel preferences and goals"
+                        placeholder="Tell us about your travel preferences and goals – give others a glimpse into your adventure plans!"
                     />
+                </div>
+                <div>
+                    <label htmlFor="profilePicture">Profile Picture:</label>
+                    <input
+                        type="file"
+                        id="profilePicture"
+                        name="profilePicture"
+                        accept="image/*" 
+                        onChange={(e) => setFormData({ ...formData, profilePicture: e.target.files[0] })} />
                 </div>
                 <div>
                     <label htmlFor="socialMediaLink">Social Media Link:</label>
@@ -137,7 +162,6 @@ export const SignUpForm = () => {
                         name="socialMediaLink"
                         value={formData.socialMediaLink}
                         onChange={handleChange}
-                        placeholder="Enter your social media link"
                     />
                 </div>
                 <button type="submit">Sign Up</button>
