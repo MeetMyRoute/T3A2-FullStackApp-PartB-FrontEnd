@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../stylesheets/PasswordReset.css";
 
-// const API = import.meta.env.VITE_API_URL;
+// const API = import.meta.env.API_URL;
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -25,8 +25,8 @@ const ForgetPassword = () => {
   // Password Validation Helper
   const isValidPassword = (password) => {
     return (
-      password.length === 11 &&
-      /[A-Z]/.test(password)
+      password.length >= 11 &&
+      /\d/.test(password) 
     );
   };
 
@@ -52,6 +52,12 @@ const ForgetPassword = () => {
         "http://localhost:4000/user/forgetPassword",
         { email }
       );
+      // try {
+      //   const response = await axios.post(
+      //     `${API}user/forgetPassword`,
+      //     { email }
+      //   );
+
       setMessage(response.data.message);
       setStep("reset");
     } catch (error) {
@@ -74,8 +80,8 @@ const ForgetPassword = () => {
       errors.newPassword = "Password is required.";
     } else if (!isValidPassword(newPassword)) {
       errors.newPassword =
-        "Password must be exactly 11 characters long and include at least one uppercase letter.";
-    }
+        "Password must be at least 11 characters long and include at least one numeral."
+    };
 
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
@@ -85,6 +91,12 @@ const ForgetPassword = () => {
     setValidationErrors({});
     setLoading(true);
 
+    // try {
+    //   const response = await axios.patch(
+    //     `${API}user/reset-password`,
+    //     { resetToken, newPassword }
+    //   );
+    
     try {
       const response = await axios.patch(
         "http://localhost:4000/user/reset-password",
@@ -92,7 +104,6 @@ const ForgetPassword = () => {
       );
       setMessage(response.data.message);
 
-      // After a successful reset, navigate to login page immediately after success message
       setTimeout(() => {
         navigate("/login"); 
       }, 3000);
