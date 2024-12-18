@@ -32,7 +32,7 @@ export function SearchAndFilter() {
             setResults(data);
         } catch(error) {
             console.log(error);
-            setError(err.response?.data?.message || "Failed to fetch search results. Please try again");
+            setError(err.res?.data?.message || "Failed to fetch search results. Please try again");
         } finally {
             setLoading(false);
         }
