@@ -4,18 +4,17 @@ import "./ConnectButton.css";
 
 const API = import.meta.env.API_URL;
 
-export function ConnectButton({recipientId, recipientName, status}) {
+export function ConnectButton({recipientId, recipientName, status, isDisabled}) {
     
     // Track sending state
     const [loading, setLoading] = useState(false);
-
-    // Success/error feedback
-    const [feedback, setFeedback] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState("");
 
     // Function to handle sending connect message
     const handleConnect = async() => {
         setLoading(true);
-        setFeedback("");
+        setError("");
 
         // Pre-populated message based on user info
         const prePopulatedMessage = `Hey ${recipientName}, I'm travelling to your ${
@@ -28,23 +27,27 @@ export function ConnectButton({recipientId, recipientName, status}) {
                 recipientId,
                 message: prePopulatedMessage
             });
-            setFeedback("Connect message sent successfully!");
+            setSuccess(true);
         } catch(error) {
-            setFeedback("Failed to send message. Please try again");
+            setError("Failed to send connect message. Please try again");
         } finally {
             setLoading(false);
         }
     }
 
     return (
-        <div>
+        <div className="connect-button-container">
             {/* Connect button */}
-            <button onClick={handleConnect} disabled={loading} className="connect-button">
-                {loading ? "Sending..." : "Sent"}
+            <button
+                onClick={handleConnect}
+                disabled={loading || success || isDisabled}
+                title={success ? "Message already sent" : isDisabled ? "You have already connected" : undefined}
+                className="connect-button">
+                {loading ? "Sending..." : success || isDisabled ? "Sent" : "Send a Message"}
             </button>
 
             {/* Success/error feedback */}
-            {feedback && <p className="feedback-message">{feedback}</p>}
+            {error && <p className="error-message">{error}</p>}
         </div>
     )    
 }

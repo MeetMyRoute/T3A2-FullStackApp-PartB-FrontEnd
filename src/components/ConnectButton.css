@@ -29,6 +29,10 @@
     cursor: not-allowed;
 }
 
+.connect-button:disabled:hover {
+    background-color: grey;
+}
+
 /* Tablet views */
 @media (min-width: 768px) {
     .connect-button {

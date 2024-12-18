@@ -98,6 +98,9 @@ export function SearchAndFilter() {
                                 recipientId={result.userId}
                                 recipientName={result.user}
                                 status={result.status}
+                                
+                                // Disable if already connected
+                                isDisabled={user.hasConnected}
                             />
                         </div>
                     </div>
