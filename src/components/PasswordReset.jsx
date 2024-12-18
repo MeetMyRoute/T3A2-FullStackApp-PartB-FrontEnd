@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../stylesheets/PasswordReset.css";
 
-// const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -47,16 +47,17 @@ const ForgetPassword = () => {
     setValidationErrors({});
     setLoading(true);
 
-    try {
-      const response = await axios.post(
-        "http://localhost:4000/user/forgetPassword",
-        { email }
-      );
-      // try {
-      //   const response = await axios.post(
-      //     `${API}user/forgetPassword`,
-      //     { email }
-      //   );
+    // try {
+    //   const response = await axios.post(
+    //     "http://localhost:4000/user/forgetPassword",
+    //     { email }
+    //   );
+    
+      try {
+        const response = await axios.post(
+          `${API}/user/forgetPassword`,
+          { email }
+        );
 
       setMessage(response.data.message);
       setStep("reset");
@@ -91,17 +92,18 @@ const ForgetPassword = () => {
     setValidationErrors({});
     setLoading(true);
 
+    try {
+      const response = await axios.patch(
+        `${API}/user/reset-password`,
+        { resetToken, newPassword }
+      );
+    
     // try {
     //   const response = await axios.patch(
-    //     `${API}user/reset-password`,
+    //     "http://localhost:4000/user/reset-password",
     //     { resetToken, newPassword }
     //   );
     
-    try {
-      const response = await axios.patch(
-        "http://localhost:4000/user/reset-password",
-        { resetToken, newPassword }
-      );
       setMessage(response.data.message);
 
       setTimeout(() => {

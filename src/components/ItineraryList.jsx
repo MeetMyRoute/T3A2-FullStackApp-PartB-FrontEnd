@@ -3,7 +3,7 @@ import "./ItineraryList.css";
 import axios from "axios";
 import { ItineraryForm } from "./ItineraryForm";
 
-const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 export function ItineraryList() {
     const [itineraries, setItineraries] = useState([]);

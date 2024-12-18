@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/UserContext"; 
 import '../stylesheets/LoginForm.css';
 
-// const API = import.meta.env.API_URL;  
+const API = import.meta.env.VITE_API_URL;  
 
 export function LoginForm() {
   const navigate = useNavigate();
@@ -22,16 +22,15 @@ export function LoginForm() {
         password: password
       };
 
-      const response = await axios.post("http://localhost:4000/user/login", requestBody); 
-      // const response = await axios.post(`${API}user/login`, requestBody);
+      const response = await axios.post(`${API}/user/login`, requestBody);
 
-      const { token, userId, userData } = response.data;
+      const { token, user } = response.data;
 
-      login({ token, userId, ...userData });
+      login({ token, user });
 
       setErrorMessage(""); 
-      
-      navigate(`/profile/${userId}`);
+
+      navigate(`/profile/${user.id}`);
 
     } catch (error) {
       console.error("Login failed:", error);

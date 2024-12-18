@@ -4,7 +4,7 @@ import { DateSelector } from "./DateSelector";
 import "./SearchAndFilter.css";
 import defaultProfile from "../assets/default-profile.jpg";
 
-const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 export function SearchAndFilter() {
     const [destination, setDestination] = useState("");

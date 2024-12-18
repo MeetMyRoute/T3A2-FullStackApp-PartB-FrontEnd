@@ -3,7 +3,7 @@ import axios from "axios";
 import "../stylesheets/ProfileForm.css"
 import { convertImageToBase64 } from '../utils/imageUtils'
 
-const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 export default function ProfileForm({profileData}) {
     const [tempProfileData, setTempProfileData] = useState({});
