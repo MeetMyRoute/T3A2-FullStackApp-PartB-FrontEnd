@@ -31,7 +31,8 @@ export function SearchAndFilter() {
             const data = res.data.data;
             setResults(data);
         } catch(error) {
-            setError("Failed to fetch search results. Please try again");
+            console.log(error);
+            setError(err.response?.data?.message || "Failed to fetch search results. Please try again");
         } finally {
             setLoading(false);
         }
@@ -55,7 +56,6 @@ export function SearchAndFilter() {
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
                     placeholder="Enter destination"
-                    required
                 />
 
                 {/* Date selector component */}
@@ -63,7 +63,6 @@ export function SearchAndFilter() {
                     startDate={startDate}
                     endDate={endDate}
                     onDateChange={handleDateChange}
-                    required
                 />
 
                 {/* Search button */}
@@ -80,7 +79,7 @@ export function SearchAndFilter() {
                 {results.length === 0 && !loading && <p>No results found</p>}
                 {results.map((result, index) => (
                     <div key={index} className="result-card">
-                        <img src={result.profilePic || {defaultProfile}} alt="Profile" className="profile-picture" />
+                        <img src={result.profilePic || defaultProfile} alt="Profile" className="profile-picture" />
                         <div className="result-details">
                             <h3>{result.user}</h3>
                             <p>Status: {result.status}</p>
@@ -95,7 +94,11 @@ export function SearchAndFilter() {
                             )}
                             {/* Update when profile feature is merged */}
                             <button>View Profile</button>
-                            <ConnectButton recipientId={user.userId} recipientName={user.user} />
+                            <ConnectButton
+                                recipientId={result.userId}
+                                recipientName={result.user}
+                                status={result.status}
+                            />
                         </div>
                     </div>
                 ))}
