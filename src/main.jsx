@@ -8,9 +8,7 @@ import { UserProvider } from './contexts/UserContext';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
       <UserProvider>
-        <ProfileDataProvider>
-          <App />
-        </ProfileDataProvider>
+        <App />
       </UserProvider>
   </StrictMode>
 )
