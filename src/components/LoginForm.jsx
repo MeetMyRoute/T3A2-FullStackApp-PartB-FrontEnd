@@ -24,13 +24,13 @@ export function LoginForm() {
 
       const response = await axios.post(`${API}/user/login`, requestBody);
 
-      const { token, userId, userData } = response.data;
+      const { token, user } = response.data;
 
-      login({ token, userId, ...userData });
+      login({ token, user });
 
       setErrorMessage(""); 
-      
-      navigate(`/profile/${userId}`);
+
+      navigate(`/profile/${user.id}`);
 
     } catch (error) {
       console.error("Login failed:", error);

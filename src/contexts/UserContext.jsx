@@ -9,10 +9,12 @@ export function UserProvider({ children }) {
 
   const login = (userData) => {
     setUser(userData);
+    localStorage.setItem("jwt", JSON.stringify(user.token));
   };
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("jwt");
   };
 
   return (
