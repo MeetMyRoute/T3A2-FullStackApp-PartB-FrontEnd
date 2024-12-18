@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { useProfileData } from "../contexts/ProfileContext";
 import "../stylesheets/ProfileContainer.css"
 import ProfileForm from "./ProfileForm";
 import ViewProfile from "./ViewProfile";
 
 export default function ProfileContainer() {
     let [isEditing, setIsEditing] = useState(false);
-    let profileData = useProfileData();
-
+    
     if (isEditing) {
         return (
             <div className="profileContainer">
