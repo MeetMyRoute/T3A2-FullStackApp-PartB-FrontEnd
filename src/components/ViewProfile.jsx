@@ -1,32 +1,32 @@
 import "../stylesheets/ViewProfile.css"
 
-export default function ViewProfile({profileData}) {
-    if (profileData.name) {
+export default function ViewProfile({profile}) {
+    if (profile.data) {
         return (
             <div className="profileView">
                 <section className="profileViewLeft">
-                    <h2 className="viewName viewLocation">{profileData.name}, {profileData.location}</h2>
+                    <h2 className="viewName viewLocation">{profile.data.data.name}, {profile.data.data.location}</h2>
 
-                    {profileData.profilePic && <img src={profileData.profilePic} alt="Profile Picture" id="viewProfilePic" />}
+                    {profile.data.data.profilePic && <img src={profile.data.data.profilePic} alt="Profile Picture" id="viewProfilePic" />}
 
-                    <h3 id="viewStatus">{profileData.status}</h3>
+                    <h3 id="viewStatus">{profile.data.data.status}</h3>
                 </section>
                 <section className="profileViewRight">
-                    {profileData.travelPreferencesAndGoals.length > 0 ?
+                    {profile.data.data.travelPreferencesAndGoals.length > 0 ?
                     <div className="viewTravelPrefAndGoals"> 
                         <p>Travel Preferences & Goals:</p>
                         <ul className="viewTravelPrefAndGoalsItem">
-                            {profileData.travelPreferencesAndGoals.map((item, index) => (
+                            {profile.data.data.travelPreferencesAndGoals.map((item, index) => (
                             <li key={index}>{item}</li>
                             ))}
                         </ul>
                     </div> :
                     null}
 
-                    {profileData.itineraries.length > 0 ?
+                    {profile.data.data.itineraries.length > 0 ?
                     <div className="viewItineraries"> 
                         <p>Travel Itineraries:</p>
-                        {profileData.itineraries.map((itinerary, index) => {
+                        {profile.data.data.itineraries.map((itinerary, index) => {
                             return <div key={index} className="itineraryCard">
                                 <p className="itineraryDestination">Destination: {itinerary.destination} <br /></p>
                                 <p className="itineraryDates">Dates: {itinerary.startDate} - {itinerary.endDate}</p>
@@ -35,7 +35,7 @@ export default function ViewProfile({profileData}) {
                     </div> :
                     null}
 
-                    {profileData.socialMediaLink && <a id="viewSocialMedia" href={profileData.socialMediaLink}>{profileData.socialMediaLink}</a>} <br />
+                    {profile.data.data.socialMediaLink && <a id="viewSocialMedia" href={profile.data.data.socialMediaLink}>{profile.data.data.socialMediaLink}</a>} <br />
                 </section>
             </div>
         )

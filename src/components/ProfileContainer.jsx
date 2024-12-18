@@ -1,11 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "../stylesheets/ProfileContainer.css"
 import ProfileForm from "./ProfileForm";
 import ViewProfile from "./ViewProfile";
 
-export default function ProfileContainer() {
-    let [isEditing, setIsEditing] = useState(false);
-    
+const API = import.meta.env.VITE_API_URL;
+
+export default function ProfileContainer({userId}) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [profileData, setProfileData] = useState({})
+
+    async function fetchAndSetProfileData(userId) {
+        try {
+            const jwt = localStorage.getItem("jwt")
+            const result = await axios.get(`${API}/profile/${userId}`,{
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            });
+            console.log(`${API}/profile/${userId}`)
+            setProfileData(result);
+            console.log(result);
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    useEffect(() => {
+        fetchAndSetProfileData(userId);
+    }, [userId]);
+
     if (isEditing) {
         return (
             <div className="profileContainer">
@@ -16,7 +40,7 @@ export default function ProfileContainer() {
         
     } else {
         return <div className="profileContainer">
-            <ViewProfile profileData={profileData} />
+            <ViewProfile profile={profileData} />
             <button className="editButton messageButton" onClick={() => setIsEditing(true)}>Edit Profile</button>
     </div>
     }
