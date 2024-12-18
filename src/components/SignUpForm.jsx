@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../stylesheets/SignUpForm.css';
 
-// const API = import.meta.env.API_URL;  
+const API = import.meta.env.VITE_API_URL;  
 
 export const SignUpForm = () => {
     const [formData, setFormData] = useState({
@@ -71,17 +71,17 @@ export const SignUpForm = () => {
             }
     
             // Send FormData to the backend
-            const response = await axios.post("http://localhost:4000/user/", data, {
-                headers: {
-                    "Content-Type": "multipart/form-data", 
-                },
-            });
-
-            // const response = await axios.post(`${API}user/`, data, {
+            // const response = await axios.post("http://localhost:4000/user/", data, {
             //     headers: {
             //         "Content-Type": "multipart/form-data", 
             //     },
             // });
+
+            const response = await axios.post(`${API}/user/`, data, {
+                headers: {
+                    "Content-Type": "multipart/form-data", 
+                },
+            });
     
             if (response.status === 201) {
                 alert("Registration successful");
