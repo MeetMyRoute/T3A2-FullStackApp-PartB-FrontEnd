@@ -3,7 +3,7 @@ import "./ItineraryForm.css";
 import axios from "axios";
 import { DateSelector } from "./DateSelector";
 
-const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
     const [formData, setFormData] = useState({

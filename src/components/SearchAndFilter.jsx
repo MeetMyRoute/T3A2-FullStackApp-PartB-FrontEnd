@@ -5,7 +5,7 @@ import "./SearchAndFilter.css";
 import defaultProfile from "../assets/default-profile.jpg";
 import { ConnectButton } from "./ConnectButton";
 
-const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 export function SearchAndFilter() {
     const [destination, setDestination] = useState("");

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./ConnectButton.css";
 
-const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 export function ConnectButton({recipientId, recipientName, status, isDisabled}) {
     

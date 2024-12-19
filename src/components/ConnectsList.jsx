@@ -3,7 +3,7 @@ import defaultProfile from "../assets/default-profile.jpg";
 import axios from "axios";
 import "./ConnectsList.css";
 
-const API = import.meta.env.API_URL;
+const API = import.meta.env.VITE_API_URL;
 
 export function ConnectsList() {
     const [connects, setConnects] = useState([]);
