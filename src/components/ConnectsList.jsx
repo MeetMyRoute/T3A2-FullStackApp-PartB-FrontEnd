@@ -10,14 +10,33 @@ export function ConnectsList() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    // Fetch connections when the component mounts
+    // Store user's ID
+    const [userId, setUserId] = useState(null);
+
+    // Fetch connects when the component mounts
     useEffect(() => {
         const fetchConnects = async() => {
             try {
-                const res = await axios.get(`${API}/connects`);
-                setConnects(res.data.data);
+                const jwt = localStorage.getItem("jwt");
+                if (!jwt) {
+                    throw new Error("Not authenticated. Please login")
+                }
+
+                const userResponse = await axios.get(`${API}/user/me`, {
+                    headers: {
+                        Authorization: `Bearer ${jwt}`
+                    }
+                });
+                setUserId(userResponse.data.id);
+
+                const response = await axios.get(`${API}/connects`, {
+                    headers: {
+                        Authorization: `Bearer ${jwt}`
+                    }
+                });
+                setConnects(response.data.data);
             } catch(error) {
-                setError(error.res?.data?.message || "Failed to load connects");
+                setError(error.response?.data?.message || "Failed to load connects");
             } finally {
                 setLoading(false);
             }
@@ -40,21 +59,30 @@ export function ConnectsList() {
 
     return (
         <div className="connects-list">
-            {connects.map((user) => (
-                <div key={user.id} className="connects-card">
-                    <img src={user.profilePic || defaultProfile} alt="Profile" className="connects-card-img" />
-                    <div className="connects-card-details">
-                        <h3>{user.name}</h3>
-                        <p>
-                            <a href={user.socialMediaLink} target="_blank" rel="noopener noreferrer">
-                                {user.socialMediaLink}
-                            </a>
-                        </p>
-                        <p>Connection Type: {user.type === "sent" ? "Sent Message" : "Received Message"}</p>
+            {connects.map((connect) => {
+
+                // Check if the user sent the message
+                const isSent = connect.senderId._id === userId;
+
+                // Determine the other user
+                const otherUser = isSent ? connect.recipientId : connect.senderId;
+
+                return (
+                    <div key={connect._id} className="connects-card">
+                        <img src={user.profilePic || defaultProfile} alt="Profile" className="connects-card-img" />
+                        <div className="connects-card-details">
+                            <h3>{otherUser.name}</h3>
+                            <p>
+                                <a href={user.socialMediaLink} target="_blank" rel="noopener noreferrer">
+                                    {otherUser.socialMediaLink}
+                                </a>
+                            </p>
+                            <p>Connection Type: {isSent ? "Sent Message" : "Received Message"}</p>
+                        </div>
+                        <button>View Profile</button>
                     </div>
-                    <button>View Profile</button>
-                </div>
-            ))}
+                )
+            })};
         </div>
     )
 }

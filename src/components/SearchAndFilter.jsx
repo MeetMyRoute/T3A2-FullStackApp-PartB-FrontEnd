@@ -20,19 +20,27 @@ export function SearchAndFilter() {
         setLoading(true);
         setError("");
         try {
+            const jwt = localStorage.getItem("jwt");
+            if (!jwt) {
+                throw new Error("Not authenticated. Please login")
+            }
+
             // API call to /search endpoint
-            const res = await axios.get(`${API}/search`, {
+            const response = await axios.get(`${API}/search`, {
+                Authorization: {
+                    headers: `Bearer ${jwt}`
+                },
                 params: {
                     destination,
                     startDate: startDate ? startDate.toISOString() : undefined,
                     endDate: endDate ? endDate.toISOString() : undefined
                 }
             });
-            const data = res.data.data;
+            const data = response.data.data;
             setResults(data);
         } catch(error) {
             console.log(error);
-            setError(err.res?.data?.message || "Failed to fetch search results. Please try again");
+            setError(err.response?.data?.message || "Failed to fetch search results. Please try again");
         } finally {
             setLoading(false);
         }
