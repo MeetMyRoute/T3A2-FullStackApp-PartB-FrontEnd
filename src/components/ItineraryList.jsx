@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./ItineraryList.css";
 import axios from "axios";
 import { ItineraryForm } from "./ItineraryForm";
+import "../stylesheets/ItineraryList.css";
 
 const API = import.meta.env.VITE_API_URL;
 

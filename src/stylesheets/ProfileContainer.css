@@ -1,0 +1,42 @@
+.profileContainer {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background-color: var(--background-color);
+    margin-top: 0.2em;
+}
+
+.backButton,
+.editButton,
+.messageButton {
+    padding: 8px 16px;
+    margin: 16px;
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-family: inherit;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-end;
+    width: 15%;
+}
+
+.backButton:hover,
+.editButton:hover,
+.messageButton:hover {
+    background-color: var(--second-color);
+}
+
+/* Tablet view */
+/* @media (min-width: 768px) {
+} */
+
+/* Desktop view */
+
+@media (min-width: 1024px) {
+    .profileContainer {
+        max-width: 75dvw;
+        margin: 0 auto;
+    }
+}

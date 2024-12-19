@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./NavBar.css";
 import { Logo } from "./Logo";
+import "../stylesheets/NavBar.css";
 
 export function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -49,13 +49,13 @@ export function NavBar() {
                 </ul>
             )
             break;
-        case "/profile":
+        case "/profile/:userId":
         case "/itinerary":
         case "/search":
         case "/connects":
             navLinks = (
                 <ul className="navbar-links">
-                    <li><Link to="/profile" onClick={closeMenu}>Profile</Link></li>
+                    <li><Link to="/profile/:userId" onClick={closeMenu}>Profile</Link></li>
                     <li><Link to="/itinerary" onClick={closeMenu}>Itinerary</Link></li>
                     <li><Link to="/search" onClick={closeMenu}>Search</Link></li>
                     <li><Link to="/connects" onClick={closeMenu}>Connects</Link></li>

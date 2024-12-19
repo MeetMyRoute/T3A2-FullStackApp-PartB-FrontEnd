@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { DateSelector } from "./DateSelector";
-import "./SearchAndFilter.css";
 import defaultProfile from "../assets/default-profile.jpg";
 import { ConnectButton } from "./ConnectButton";
+import "../stylesheets/SearchAndFilter.css";
 
 const API = import.meta.env.VITE_API_URL;
 

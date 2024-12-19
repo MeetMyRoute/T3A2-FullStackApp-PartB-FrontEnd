@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import defaultProfile from "../assets/default-profile.jpg";
 import axios from "axios";
-import "./ConnectsList.css";
+import "../stylesheets/ConnectsList.css";
 
 const API = import.meta.env.VITE_API_URL;
 
