@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./ItineraryList.css";
 import axios from "axios";
 import { ItineraryForm } from "./ItineraryForm";
+import "../stylesheets/ItineraryList.css";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -16,9 +16,18 @@ export function ItineraryList() {
     // Fetch itineraries from API
     const fetchItineraries = async() => {
         try {
+            const jwt = localStorage.getItem("jwt");
+            if (!jwt) {
+                throw new Error("Not authenticated. Please login")
+            }
+
             const endpoint = isDetailedView ? "/itinerary" : "/itinerary/simplified";
-            const res = await axios.get(`${API}/${endpoint}`);
-            setItineraries(res.data);
+            const response = await axios.get(`${API}/${endpoint}`, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            });
+            setItineraries(response.data);
         } catch(error) {
             console.log("Error fetching itineraries:", error);
         }

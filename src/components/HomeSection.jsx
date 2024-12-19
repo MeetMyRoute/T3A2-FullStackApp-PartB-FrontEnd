@@ -1,6 +1,6 @@
 import React from "react";
-import "./HomeSection.css";
 import homeImage from "../assets/home-image.jpg";
+import "../stylesheets/HomeSection.css";
 
 export function HomeSection() {
     return (

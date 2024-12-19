@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { DateSelector } from "./DateSelector";
-import "./SearchAndFilter.css";
 import defaultProfile from "../assets/default-profile.jpg";
+import { ConnectButton } from "./ConnectButton";
+import "../stylesheets/SearchAndFilter.css";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -19,18 +20,27 @@ export function SearchAndFilter() {
         setLoading(true);
         setError("");
         try {
+            const jwt = localStorage.getItem("jwt");
+            if (!jwt) {
+                throw new Error("Not authenticated. Please login")
+            }
+
             // API call to /search endpoint
-            const res = await axios.get(`${API}/search`, {
+            const response = await axios.get(`${API}/search`, {
+                Authorization: {
+                    headers: `Bearer ${jwt}`
+                },
                 params: {
                     destination,
                     startDate: startDate ? startDate.toISOString() : undefined,
                     endDate: endDate ? endDate.toISOString() : undefined
                 }
             });
-            const data = res.data.data;
+            const data = response.data.data;
             setResults(data);
         } catch(error) {
-            setError("Failed to fetch search results. Please try again");
+            console.log(error);
+            setError(err.response?.data?.message || "Failed to fetch search results. Please try again");
         } finally {
             setLoading(false);
         }
@@ -54,7 +64,6 @@ export function SearchAndFilter() {
                     value={destination}
                     onChange={(e) => setDestination(e.target.value)}
                     placeholder="Enter destination"
-                    required
                 />
 
                 {/* Date selector component */}
@@ -62,7 +71,6 @@ export function SearchAndFilter() {
                     startDate={startDate}
                     endDate={endDate}
                     onDateChange={handleDateChange}
-                    required
                 />
 
                 {/* Search button */}
@@ -79,7 +87,7 @@ export function SearchAndFilter() {
                 {results.length === 0 && !loading && <p>No results found</p>}
                 {results.map((result, index) => (
                     <div key={index} className="result-card">
-                        <img src={result.profilePic || {defaultProfile}} alt="Profile" className="profile-picture" />
+                        <img src={result.profilePic || defaultProfile} alt="Profile" className="profile-picture" />
                         <div className="result-details">
                             <h3>{result.user}</h3>
                             <p>Status: {result.status}</p>
@@ -87,12 +95,21 @@ export function SearchAndFilter() {
                             {result.destination && (
                                 <>
                                     <p>Destination: {result.destination}</p>
-                                    <p>Travel Dates: {new Date(result.startDate).toLocaleDateString()} - {new Date(result.endDate).toLocaleDateString()}</p>
+                                    <p>
+                                        Travel Dates: {new Date(result.startDate).toLocaleDateString()} - {new Date(result.endDate).toLocaleDateString()}
+                                    </p>
                                 </>
                             )}
-                            {/* Update when profile and message features are merged */}
+                            {/* Update when profile feature is merged */}
                             <button>View Profile</button>
-                            <button>Message</button>
+                            <ConnectButton
+                                recipientId={result.userId}
+                                recipientName={result.user}
+                                status={result.status}
+                                
+                                // Disable if already connected
+                                isDisabled={user.hasConnected}
+                            />
                         </div>
                     </div>
                 ))}
