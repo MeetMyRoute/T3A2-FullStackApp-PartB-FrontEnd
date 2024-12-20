@@ -1,24 +1,28 @@
 .logo {
     display: flex;
-}
-
-.logo-image {
-    width: 75px;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
 }
 
-.logo-image:hover {
-    transform: scale(1.05);
+.logo-image {
+    width: 50px;
+    height: auto;
+    transition: transform 0.2s ease-in-out;
 }
 
-/* Tablet view */
+.logo:hover .logo-image {
+    transform: scale(1.1);
+}
+
+/* Media query for tablets */
 @media (min-width: 768px) {
     .logo-image {
-        width: 120px;
+        width: 75px;
     }
 }
 
-/* Desktop view */
+/* Media query for desktops */
 @media (min-width: 1024px) {
     .logo-image {
         width: 100px;

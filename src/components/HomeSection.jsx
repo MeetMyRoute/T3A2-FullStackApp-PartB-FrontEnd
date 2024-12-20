@@ -5,6 +5,7 @@ import "../stylesheets/HomeSection.css";
 export function HomeSection() {
     return (
         <section className="home-section">
+            {/* Content section */}
             <div className="home-content">
                 <h1 className="home-title">MeetMyRoute</h1>
                 <p className="home-subtitle">
@@ -15,6 +16,8 @@ export function HomeSection() {
                     <a href="/signup" className="home-button home-signup">Sign Up</a>
                 </div>
             </div>
+
+            {/* Image section */}
             <div className="home-image">
                 <img src={homeImage} alt="Travel illustration" />
             </div>
