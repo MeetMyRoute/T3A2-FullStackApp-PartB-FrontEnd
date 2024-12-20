@@ -9,7 +9,7 @@ import { SignUpPage } from './pages/SignUpPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { ItineraryPage } from './pages/ItineraryPage'
 import { SearchPage } from './pages/SearchPage'
-import { MessagesPage } from './pages/MessagesPage'
+import { ConnectsPage } from './pages/ConnectsPage'
 
 function App() {
 
@@ -24,7 +24,7 @@ function App() {
           <Route path="/profile/:userId" element={<ProfilePage />} />
           <Route path="/itinerary" element={<ItineraryPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/connects" element={<ConnectsPage />} />
           <Route path="/logout" element={<HomePage />} />
           <Route path="/forgot-password" element={<ForgetPassword />} />
           <Route path="/reset-password" element={<ForgetPassword />} />
