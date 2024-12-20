@@ -2,43 +2,42 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    text-align: center;
     background-color: var(--primary-color);
     color: var(--text-color);
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    padding: 0.75rem 0.5rem;
 }
 
-.footer-name h2 {
-    font-size: 18px;
+.footer-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
 }
 
-.footer-by p {
-    font-size: 12px;
-    margin-top: 18px;
+.footer-credits {
+    font-size: 1rem;
+    margin: 0;
 }
 
-/* Tablet view */
+/* Media query for tablets */
 @media (min-width: 768px) {
-    .footer-name h2 {
-        font-size: 24px;
+    .footer {
+        flex-direction: row;
+        justify-content: space-between;
     }
 
-    .footer-by p {
-        font-size: 16px;
-        margin-top: 23px;
+    .footer-title {
+        font-size: 2rem;
+    }
+
+    .footer-credits {
+        font-size: 1.1rem;
     }
 }
 
-/* Desktop view */
+/* Media query for desktops */
 @media (min-width: 1024px) {
-    .footer-by p {
-        font-size: 14px;
-        margin-top: 23px;
-    }
-
-    .footer {
-        position: relative;
+    .footer-credits {
+        font-size: 1.2rem;
     }
 }
