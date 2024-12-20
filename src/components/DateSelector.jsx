@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 
-// Import CSS for styling
 import "react-datepicker/dist/react-datepicker.css";
+import "../stylesheets/DatePicker.css";
 
-export function DateSelector({startDate, endDate, onDateChange}) {
+export function DateSelector({ startDate, endDate, onDateChange }) {
     const [validationMessage, setValidationMessage] = useState("");
 
+    // Handle start date change
     const handleStartDateChange = (date) => {
-        // Clear validation message on valid selection
         setValidationMessage("");
         if (endDate && date > endDate) {
             setValidationMessage("End date must be after the start date");
-
-            // Reset endDate if it's before the new startDate
+            // Reset end date if invalid
             onDateChange(date, null);
         } else {
-
-            // Update dates in parent
             onDateChange(date, endDate);
         }
     }
 
+    // Handle end date change
     const handleEndDateChange = (date) => {
         setValidationMessage("");
         if (startDate && date < startDate) {
@@ -32,42 +30,46 @@ export function DateSelector({startDate, endDate, onDateChange}) {
     }
 
     return (
-        <div>
-           <div>
-            <label>Start Date:</label>
-            <DatePicker
-                selected={startDate}
-                onChange={handleStartDateChange}
-                selectsStart
-                startDate={startDate}
-                endDate={endDate}
+        <div className="date-selector">
+            {/* Start date picker */}
+            <div className="date-picker-container">
+                <label htmlFor="start-date" className="date-label">Start Date:</label>
+                <DatePicker
+                    id="start-date"
+                    selected={startDate}
+                    onChange={handleStartDateChange}
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}
+                    // Prevent past dates
+                    minDate={new Date()}
+                    placeholderText="Select start date"
+                    // Allow clearing the date
+                    isClearable
+                />
+            </div>
 
-                // Disables past dates
-                minDate={new Date()}
-                placeholderText="Select start date"
+            {/* End date picker */}
+            <div className="date-picker-container">
+                <label htmlFor="end-date" className="date-label">End Date:</label>
+                <DatePicker
+                    id="end-date"
+                    selected={endDate}
+                    onChange={handleEndDateChange}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    // Ensure end date is on or after start date
+                    minDate={startDate}
+                    placeholderText="Select end date"
+                    isClearable
+                />
+            </div>
 
-                // Adds a clear button
-                isClearable
-            />
-           </div>
-           <div>
-            <label>End Date:</label>
-            <DatePicker
-                selected={endDate}
-                onChange={handleEndDateChange}
-                selectsEnd
-                startDate={startDate}
-                endDate={endDate}
-
-                // Ensure endDate is on or after startDate
-                minDate={startDate}
-                placeholderText="Select end date"
-                isClearable
-            />
-           </div>
-
-           {/* Display the validation message if any */}
-           <p>{validationMessage}</p>
+            {/* Validation message */}
+            {validationMessage && (
+                <p className="validation-message">{validationMessage}</p>
+            )}
         </div>
     )
 }

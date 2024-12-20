@@ -89,6 +89,26 @@
     margin-bottom: 10px;
 }
 
+.login-bottom-p {
+    margin-top: 20px;
+    font-size: 17px; 
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    color: #333; 
+}
+
+.login-link {
+    color: #A86D68; 
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-link:hover {
+    color: darkblue; 
+    text-decoration: underline;
+}
+
 @media (min-width: 768px) {
     .signup-form {
         padding: 30px;

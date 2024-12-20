@@ -3,34 +3,40 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 20px;
+    padding: 2rem;
     background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 86vh;
 }
 
 .home-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: bold;
+    margin-bottom: 1rem;
     color: var(--text-color);
-    margin-bottom: 10px;
 }
 
 .home-subtitle {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
     color: var(--primary-color);
-    margin-bottom: 20px;
 }
 
 .home-buttons {
     display: flex;
-    gap: 10px;
+    gap: 1rem;
     justify-content: center;
+    margin-bottom: 2rem;
 }
 
 .home-button {
-    padding: 10px 20px;
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
     font-size: 1rem;
-    border-radius: 5px;
+    font-weight: bold;
     text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .home-login {
@@ -45,44 +51,58 @@
 
 .home-button:hover {
     background-color: var(--primary-color);
+    transform: scale(1.05);
+}
+
+.home-image {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 600px;
 }
 
 .home-image img {
-    max-width: 100%;
-    margin-top: 20px;
+    width: 100%;
+    height: auto;
 }
 
-/* Tablet view */
+/* Media query for tablets */
 @media (min-width: 768px) {
     .home-section {
-        padding: 40px;
+        min-height: 87.3vh;
     }
-
     .home-title {
-        font-size: 3rem;
+        font-size: 4rem;
     }
 
     .home-subtitle {
-        font-size: 1.4rem;
+        font-size: 2rem;
     }
 
     .home-button {
-        padding: 15px 30px;
-        font-size: 1.4rem;
-    }
-}
-
-/* Desktop view */
-@media (min-width: 1024px) {
-    .home-buttons {
-        gap: 20px;
-    }
-
-    .home-button {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 
     .home-image {
-        max-width: 50%;
+        flex: 1;
+        margin-top: 0;
+    }
+}
+
+/* Media query for desktops */
+@media (min-width: 1024px) {
+    .home-section {
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .home-content {
+        flex: 1;
+        padding-right: 2rem;
+    }
+
+    .home-buttons {
+        gap: 2rem;
+        display: flex;
+        justify-content: left;
     }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import '../stylesheets/SignUpForm.css';
 import { convertImageToBase64 } from '../utils/imageUtils';
@@ -72,13 +72,6 @@ export const SignUpForm = () => {
                 data.append("profilePic", formData.profilePic);
             }
     
-            // Send FormData to the backend
-            // const response = await axios.post("http://localhost:4000/user/", data, {
-            //     headers: {
-            //         "Content-Type": "multipart/form-data", 
-            //     },
-            // });
-
             const response = await axios.post(`${API}/user/`, data, {
                 headers: {
                     "Content-Type": "multipart/form-data", 
@@ -189,6 +182,9 @@ export const SignUpForm = () => {
                     />
                 </div>
                 <button type="submit">Sign Up</button>
+                <p className="login-bottom-p">
+                    Already have an account? <Link to="/login" className="login-link">Login</Link>
+                </p>
             </form>
         </div>
     );
