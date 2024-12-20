@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import '../stylesheets/SignUpForm.css';
+import { convertImageToBase64 } from '../utils/imageUtils';
 
 const API = import.meta.env.VITE_API_URL;  
 
@@ -32,7 +33,7 @@ export const SignUpForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!formData.email || !formData.password || !formData.status || !formData.location || !formData.travelPreferencesAndGoals || !formData.socialMediaLink) {
+        if (!formData.email || !formData.password || !formData.status || !formData.location || !formData.socialMediaLink) {
             setError("Please fill in all fields");
             return;
         }
@@ -56,6 +57,7 @@ export const SignUpForm = () => {
         setError("");
 
         try {
+            console.log(formData.profilePic)
             // Create FormData to send both file and text
             const data = new FormData();
             data.append("name", formData.name);
@@ -168,13 +170,13 @@ export const SignUpForm = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="profilePicture">Profile Picture:</label>
+                    <label htmlFor="profilePic">Profile Picture:</label>
                     <input
                         type="file"
-                        id="profilePicture"
-                        name="profilePicture"
+                        id="profilePic"
+                        name="profilePic"
                         accept="image/*" 
-                        onChange={(e) => setFormData({ ...formData, profilePicture: e.target.files[0] })} />
+                        onChange={async (e) => setFormData({ ...formData, profilePic: await convertImageToBase64(e.target.files[0]) })} />
                 </div>
                 <div>
                     <label htmlFor="socialMediaLink">Social Media Link:</label>
