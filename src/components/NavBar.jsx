@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import "./NavBar.css";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { Logo } from "./Logo";
+import "../stylesheets/NavBar.css";
 
 export function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     // Get the current route
     const location = useLocation();
+
+    // Get the logged in user userId
+    const loggedInUserId = localStorage.getItem("userId");
+    
+    // Get the userId from URL parameters 
+    const userId = useParams();
 
     const toggleMenu = () => {
         setMenuOpen(!menuOpen);
@@ -49,23 +55,34 @@ export function NavBar() {
                 </ul>
             )
             break;
-        case "/profile/:userId":
         case "/itinerary":
         case "/search":
-        case "/messages":
+        case "/connects":
             navLinks = (
                 <ul className="navbar-links">
-                    <li><Link to="/profile/:userId" onClick={closeMenu}>Profile</Link></li>
+                    <li><Link to={`/profile/${loggedInUserId}`} onClick={closeMenu}>Profile</Link></li>
                     <li><Link to="/itinerary" onClick={closeMenu}>Itinerary</Link></li>
                     <li><Link to="/search" onClick={closeMenu}>Search</Link></li>
-                    <li><Link to="/messages" onClick={closeMenu}>Messages</Link></li>
-                    <li><Link to="/logout" onClick={closeMenu}>Logout</Link></li>
+                    <li><Link to="/connects" onClick={closeMenu}>Connects</Link></li>
+                    <li><Link to="/" onClick={closeMenu}>Logout</Link></li>
                 </ul>
             )
             break;
         default:
             navLinks = null;
             break;
+    }
+
+    if (location.pathname.startsWith(`/profile/`)) {
+        navLinks = (
+            <ul className="navbar-links">
+                <li><Link to={`/profile/${loggedInUserId}`} onClick={closeMenu}>Profile</Link></li>
+                <li><Link to="/itinerary" onClick={closeMenu}>Itinerary</Link></li>
+                <li><Link to="/search" onClick={closeMenu}>Search</Link></li>
+                <li><Link to="/connects" onClick={closeMenu}>Connects</Link></li>
+                <li><Link to="/" onClick={closeMenu}>Logout</Link></li>
+            </ul>
+        );
     }
 
     return (

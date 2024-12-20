@@ -1,47 +1,76 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import "../stylesheets/ProfileContainer.css"
 import ProfileForm from "./ProfileForm";
 import ViewProfile from "./ViewProfile";
+import axios from "axios";
+import { ConnectButton } from "./ConnectButton";
 
 const API = import.meta.env.VITE_API_URL;
 
-export default function ProfileContainer({userId}) {
+export default function ProfileContainer() {
     const [isEditing, setIsEditing] = useState(false);
-    const [profileData, setProfileData] = useState({})
+    const [loggedInUserId, setLoggedInUserId] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    async function fetchAndSetProfileData(userId) {
-        try {
-            const jwt = localStorage.getItem("jwt")
-            const result = await axios.get(`${API}/profile/${userId}`,{
-                headers: {
-                    Authorization: `Bearer ${jwt}`
+    // Fetch user ID
+    useEffect(() => {
+        const fetchLoggedInUser = async() => {
+            try {
+                const jwt = localStorage.getItem("jwt");
+                if (!jwt) {
+                    throw new Error("Not authenticated. Please login");
                 }
-            });
-            console.log(`${API}/profile/${userId}`)
-            setProfileData(result);
-            console.log(result);
-        } catch (error) {
-            console.log("error", error)
+
+                const response = await axios.get(`${API}/user/me`, {
+                    headers: {
+                        Authorization: `Bearer ${jwt}`
+                    }
+                });
+                setLoggedInUserId(response.data.id);
+            } catch(error) {
+                setError(error.response?.data?.message || "Failed to fetch user data");
+            } finally {
+                setLoading(false);
+            }
         }
+        fetchLoggedInUser();
+    }, []);
+
+    if (loading) {
+        return <p>Loading...</p>
     }
 
-    useEffect(() => {
-        fetchAndSetProfileData(userId);
-    }, [userId]);
+    if (error) {
+        return <p className="error-message">{error}</p>
+    }
 
+    // Determine if this is the logged-in user's profile
+    const isOwnProfile = loggedInUserId === profileUserId;
+    
     if (isEditing) {
         return (
             <div className="profileContainer">
                 <button className="backButton" onClick={() => setIsEditing(false)}>Back</button>
-                <ProfileForm profileData={profileData} />
+                <ProfileForm profile={profileData} onFormSubmit={onSubmit} />
             </div>
         ) 
         
     } else {
         return <div className="profileContainer">
-            <ViewProfile profile={profileData} />
-            <button className="editButton messageButton" onClick={() => setIsEditing(true)}>Edit Profile</button>
-    </div>
+            <ViewProfile profileData={profileData} />
+            {isOwnProfile ? (
+                <button className="editButton" onClick={() => setIsEditing(true)}>Edit Profile</button>
+            ) : (
+                <ConnectButton 
+                    recipientId={profileData.userId}
+                    recipientName={profileData.name}
+                    status={profileData.status}
+                    
+                    // Disable if already connected
+                    isDisabled={profileData.hasConnected}
+                />
+            )}
+        </div>
     }
 }
