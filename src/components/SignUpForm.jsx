@@ -70,14 +70,7 @@ export const SignUpForm = () => {
                 data.append("profilePic", formData.profilePic);
             }
     
-            // Send FormData to the backend
-            // const response = await axios.post("http://localhost:4000/user/", data, {
-            //     headers: {
-            //         "Content-Type": "multipart/form-data", 
-            //     },
-            // });
-
-            const response = await axios.post(`${API}/user/`, data, {
+            const response = await axios.post(`${API}user/`, data, {
                 headers: {
                     "Content-Type": "multipart/form-data", 
                 },
