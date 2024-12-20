@@ -11,9 +11,6 @@ export function NavBar() {
 
     // Get the logged in user userId
     const loggedInUserId = localStorage.getItem("userId");
-    
-    // Get the userId from URL parameters 
-    const userId = useParams();
 
     // Toggle the menu open/close state
     const toggleMenu = () => {
@@ -84,7 +81,7 @@ export function NavBar() {
     }
 
     return (
-        <nav className="navbar">
+        <nav className="navbar">https://www.netflix.com/browse
             <Logo onClick={closeMenu} />
 
             {/* Hamburger icon for smaller screens*/}
