@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import "../stylesheets/ProfileForm.css"
-import { convertImageToBase64 } from '../utils/imageUtils'
+import "../stylesheets/ProfileForm.css";
+import { convertImageToBase64 } from '../utils/imageUtils';
 
 const API = import.meta.env.VITE_API_URL;
 
-export default function ProfileForm({profileData}) {
+export default function ProfileForm({profile, onFormSubmit}) {
     const [tempProfileData, setTempProfileData] = useState({});
+    const [error, setError] = useState("");
+    const { userId } = useParams();
 
     const handleChange = async (e) => {
         const {name, value, type, files} = e.target;
@@ -27,6 +30,7 @@ export default function ProfileForm({profileData}) {
                 ...prev,
                 [name]: value
             }));
+            console.log(tempProfileData)
         }    
     }
 
@@ -48,6 +52,7 @@ export default function ProfileForm({profileData}) {
 
     const handleRemoveTravelPrefAndGoals = (index) => {
         const updatedTravelPrefAndGoals = tempProfileData.travelPreferencesAndGoals.filter((_, i) => i !== index);
+
         setTempProfileData((prev) => ({
             ...prev,
             travelPreferencesAndGoals: updatedTravelPrefAndGoals
@@ -57,18 +62,26 @@ export default function ProfileForm({profileData}) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`${API}/profile/${profileData.userId}`, updatedProfileData);
+            const jwt = localStorage.getItem("jwt");
+            if (!jwt) {
+                throw new Error("Not authenticated. Please login");
+            }
+            await axios.patch(`${API}/profile/${userId}`, tempProfileData, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            });
             onFormSubmit();
         } catch (error) {
-            console.log("Error in updating profile:", error);
+            console.log("Error updating profile:", error);
         }
     }
 
     useEffect(() => {
-        setTempProfileData(profileData);
-    }, [profileData])
+        setTempProfileData(profile);
+    }, [profile])
 
-    return !!profileData && (
+    return !!profile && (
         <form className="profileForm" onSubmit={handleSubmit}>
             <h2>Edit Profile</h2>
 
@@ -77,7 +90,7 @@ export default function ProfileForm({profileData}) {
             type="text"
             name="name"
             id="editName"
-            defaultValue={profileData.name}
+            defaultValue={profile.name}
             onChange={(e)=>{handleChangeGeneric(e)}}
             required />
             
@@ -86,7 +99,7 @@ export default function ProfileForm({profileData}) {
             type="text"
             name="location"
             id="editLocation"
-            defaultValue={profileData.location}
+            defaultValue={profile.location}
             onChange={(e)=>{handleChange(e)}}
             required />
 
@@ -94,13 +107,13 @@ export default function ProfileForm({profileData}) {
             <select
             name="status"
             className="editStatusOptions"
-            defaultValue={profileData.status}
+            defaultValue={profile.status}
             onChange={(e)=>{handleChange(e)}}
             required > 
-                <option defaultValue={profileData.status}>{profileData.status}</option>
-                {profileData.status !== "Private" ? <option value="private">Private</option> : null}
-                {profileData.status !== "Travelling" ? <option value="travelling">Travelling</option> : null}
-                {profileData.status !== "Local" ? <option value="local">Local</option> : null}
+                <option value={profile.status}>{profile.status}</option>
+                {profile.status !== "Private" ? <option value="Private">Private</option> : null}
+                {profile.status !== "Travelling" ? <option value="Travelling">Travelling</option> : null}
+                {profile.status !== "Local" ? <option value="Local">Local</option> : null}
             </select>
 
             <label htmlFor="profilePic">Profile Picture:</label>
@@ -110,7 +123,7 @@ export default function ProfileForm({profileData}) {
             id="editProfilePic"
             accept="image/*"
             onChange={(e)=>{handleChange(e)}} />
-            <img src={tempProfileData.profilePic} alt="Profile Picture Preview" id="profilePicPreview" />
+            {tempProfileData.profilePic && <img src={tempProfileData.profilePic} alt="Profile Picture Preview" id="profilePicPreview" />}
 
             <label htmlFor="travelPreferencesAndGoals">Travel Preferences & Goals:</label>
             {tempProfileData.travelPreferencesAndGoals?.map((item, index) => {
@@ -118,7 +131,7 @@ export default function ProfileForm({profileData}) {
                     <div key={index} className="travelPrefAndGoalsItem">
                         <input
                             type="text"
-                            defaultValue={item}
+                            value={item}
                             onChange={(e) => handleChangeTravelPrefAndGoals(index, e.target.value)} />
                         <button 
                             type="button"
@@ -137,7 +150,7 @@ export default function ProfileForm({profileData}) {
             type="text"
             name="socialMediaLink"
             id="editSocialMediaLink"
-            defaultValue={profileData.socialMediaLink}
+            defaultValue={profile.socialMediaLink}
             onChange={(e)=>{handleChange(e)}} />
 
             <div className="formActions">

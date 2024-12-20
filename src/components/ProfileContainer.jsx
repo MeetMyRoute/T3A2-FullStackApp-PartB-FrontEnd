@@ -1,41 +1,54 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import "../stylesheets/ProfileContainer.css"
 import ProfileForm from "./ProfileForm";
 import ViewProfile from "./ViewProfile";
-import axios from "axios";
 import { ConnectButton } from "./ConnectButton";
 
 const API = import.meta.env.VITE_API_URL;
 
 export default function ProfileContainer() {
     const [isEditing, setIsEditing] = useState(false);
-    const [loggedInUserId, setLoggedInUserId] = useState(null);
+    const [profileData, setProfileData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const { userId } = useParams();
 
-    // Fetch user ID
-    useEffect(() => {
-        const fetchLoggedInUser = async() => {
-            try {
-                const jwt = localStorage.getItem("jwt");
-                if (!jwt) {
-                    throw new Error("Not authenticated. Please login");
-                }
+    // Get userId from local storage
+    const loggedInUserId = localStorage.getItem("userId");
 
-                const response = await axios.get(`${API}/user/me`, {
-                    headers: {
-                        Authorization: `Bearer ${jwt}`
-                    }
-                });
-                setLoggedInUserId(response.data.id);
-            } catch(error) {
-                setError(error.response?.data?.message || "Failed to fetch user data");
-            } finally {
-                setLoading(false);
+    // Determine if this is the logged-in user's profile
+    const isOwnProfile = loggedInUserId === userId;
+
+    // Fetch and set profile data based on userId
+    async function fetchAndSetProfileData(userId) {
+        try {
+            const jwt = localStorage.getItem("jwt");
+            if (!jwt) {
+                throw new Error("Not authenticated. Please login");
             }
+            const response = await axios.get(`${API}/profile/${userId}`, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            });
+            setProfileData(response.data.data);
+        } catch(error) {
+            setError(error.response?.data?.message || "Failed to fetch user data");
+        } finally {
+            setLoading(false);
         }
-        fetchLoggedInUser();
-    }, []);
+    }
+
+    const onSubmit = () => {
+        setIsEditing(false);
+        fetchAndSetProfileData(userId);
+    }
+
+    useEffect(() => {
+        fetchAndSetProfileData(userId);
+    }, [userId]);
 
     if (loading) {
         return <p>Loading...</p>
@@ -44,9 +57,6 @@ export default function ProfileContainer() {
     if (error) {
         return <p className="error-message">{error}</p>
     }
-
-    // Determine if this is the logged-in user's profile
-    const isOwnProfile = loggedInUserId === profileUserId;
     
     if (isEditing) {
         return (
@@ -57,8 +67,9 @@ export default function ProfileContainer() {
         ) 
         
     } else {
+        console.log(profileData)
         return <div className="profileContainer">
-            <ViewProfile profileData={profileData} />
+            <ViewProfile profile={profileData} />
             {isOwnProfile ? (
                 <button className="editButton" onClick={() => setIsEditing(true)}>Edit Profile</button>
             ) : (

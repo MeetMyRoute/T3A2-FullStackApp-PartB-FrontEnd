@@ -1,32 +1,32 @@
 import "../stylesheets/ViewProfile.css"
 
 export default function ViewProfile({profile}) {
-    if (profile.data) {
+    console.log(profile)
         return (
             <div className="profileView">
                 <section className="profileViewLeft">
-                    <h2 className="viewName viewLocation">{profile.data.data.name}, {profile.data.data.location}</h2>
+                    <h2 className="viewName viewLocation">{profile.name}, {profile.location}</h2>
 
-                    {profile.data.data.profilePic && <img src={profile.data.data.profilePic} alt="Profile Picture" id="viewProfilePic" />}
+                    {profile.profilePic && <img src={profile.profilePic} alt="Profile Picture" id="viewProfilePic" />}
 
-                    <h3 id="viewStatus">{profile.data.data.status}</h3>
+                    <h3 id="viewStatus">{profile.status}</h3>
                 </section>
                 <section className="profileViewRight">
-                    {profile.data.data.travelPreferencesAndGoals.length > 0 ?
+                    {profile.travelPreferencesAndGoals.length > 0 ?
                     <div className="viewTravelPrefAndGoals"> 
                         <p>Travel Preferences & Goals:</p>
                         <ul className="viewTravelPrefAndGoalsItem">
-                            {profile.data.data.travelPreferencesAndGoals.map((item, index) => (
+                            {profile.travelPreferencesAndGoals.map((item, index) => (
                             <li key={index}>{item}</li>
                             ))}
                         </ul>
                     </div> :
                     null}
 
-                    {profile.data.data.itineraries.length > 0 ?
+                    {profile.itineraries.length > 0 ?
                     <div className="viewItineraries"> 
                         <p>Travel Itineraries:</p>
-                        {profile.data.data.itineraries.map((itinerary, index) => {
+                        {profile.itineraries.map((itinerary, index) => {
                             return <div key={index} className="itineraryCard">
                                 <p className="itineraryDestination">Destination: {itinerary.destination} <br /></p>
                                 <p className="itineraryDates">Dates: {itinerary.startDate} - {itinerary.endDate}</p>
@@ -35,13 +35,8 @@ export default function ViewProfile({profile}) {
                     </div> :
                     null}
 
-                    {profile.data.data.socialMediaLink && <a id="viewSocialMedia" href={profile.data.data.socialMediaLink}>{profile.data.data.socialMediaLink}</a>} <br />
+                    {profile.socialMediaLink && <a id="viewSocialMedia" href={profile.socialMediaLink}>{profile.socialMediaLink}</a>} <br />
                 </section>
             </div>
         )
-    } else {
-        return (
-            <h3 className="error">Error in loading profile, please try again.</h3>
-        )
-    }
 }
