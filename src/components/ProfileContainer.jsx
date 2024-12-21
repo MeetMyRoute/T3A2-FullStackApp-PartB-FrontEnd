@@ -7,15 +7,15 @@ import { ConnectButton } from "./ConnectButton";
 
 const API = import.meta.env.VITE_API_URL;
 
-export default function ProfileContainer() {
+export default function ProfileContainer({ profileData }) {
     const [isEditing, setIsEditing] = useState(false);
     const [loggedInUserId, setLoggedInUserId] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    // Fetch user ID
+    // Fetch the logged-in user's ID
     useEffect(() => {
-        const fetchLoggedInUser = async() => {
+        const fetchLoggedInUser = async () => {
             try {
                 const jwt = localStorage.getItem("jwt");
                 if (!jwt) {
@@ -28,19 +28,20 @@ export default function ProfileContainer() {
                     }
                 });
                 setLoggedInUserId(response.data.id);
-            } catch(error) {
+            } catch (error) {
                 setError(error.response?.data?.message || "Failed to fetch user data");
             } finally {
                 setLoading(false);
             }
         }
+
         fetchLoggedInUser();
     }, []);
 
+    // Conditional rendering for loading or error states
     if (loading) {
-        return <p>Loading...</p>
+        return <p className="loading-message">Loading...</p>
     }
-
     if (error) {
         return <p className="error-message">{error}</p>
     }
@@ -55,22 +56,21 @@ export default function ProfileContainer() {
                 <ProfileForm profileData={profileData} />
             </div>
         ) 
-        
     } else {
-        return <div className="profileContainer">
-            <ViewProfile profileData={profileData} />
-            {isOwnProfile ? (
-                <button className="editButton" onClick={() => setIsEditing(true)}>Edit Profile</button>
-            ) : (
-                <ConnectButton 
-                    recipientId={profileData.userId}
-                    recipientName={profileData.name}
-                    status={profileData.status}
-                    
-                    // Disable if already connected
-                    isDisabled={profileData.hasConnected}
-                />
-            )}
-        </div>
+        return (
+            <div className="profileContainer">
+                <ViewProfile profileData={profileData} />
+                {isOwnProfile ? (
+                    <button className="editButton" onClick={() => setIsEditing(true)}>Edit Profile</button>
+                ) : (
+                    <ConnectButton 
+                        recipientId={profileData.userId}
+                        recipientName={profileData.name}
+                        status={profileData.status}
+                        isDisabled={profileData.hasConnected}
+                    />
+                )}
+            </div>
+        )
     }
 }

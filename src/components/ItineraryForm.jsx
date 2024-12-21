@@ -3,38 +3,42 @@ import axios from "axios";
 import { DateSelector } from "./DateSelector";
 import "../stylesheets/ItineraryForm.css";
 
+// Fetch API URL from environment
 const API = import.meta.env.VITE_API_URL;
 
-export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
+export function ItineraryForm({ selectedItinerary, onFormSubmit, onCancel }) {
     const [formData, setFormData] = useState({
         destination: "",
         startDate: "",
         endDate: "",
         accommodation: "",
-        activities: [""],
+        activities: [""]
     });
 
-    // Pre-fill form if editing
+    // Pre-fill form if editing an itinerary
     useEffect(() => {
         if (selectedItinerary) {
             setFormData(selectedItinerary);
         }
     }, [selectedItinerary]);
 
+    // Handle input changes for text fields
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value
         }));
     }
 
+    // Handle changes to activities list
     const handleActivityChange = (index, value) => {
         const updatedActivities = [...formData.activities];
         updatedActivities[index] = value;
-        setFormData((prev) => ({...prev, activities: updatedActivities}));
+        setFormData((prev) => ({ ...prev, activities: updatedActivities }));
     }
 
+    // Add a new activity input
     const handleAddActivity = () => {
         setFormData((prev) => ({
             ...prev,
@@ -42,33 +46,34 @@ export function ItineraryForm({selectedItinerary, onFormSubmit, onCancel}) {
         }));
     }
 
+    // Remove an activity input
     const handleRemoveActivity = (index) => {
         const updatedActivities = formData.activities.filter((_, i) => i !== index);
-        setFormData((prev) => ({...prev, activities: updatedActivities}));
+        setFormData((prev) => ({ ...prev, activities: updatedActivities }));
     }
 
+    // Handle date changes from DateSelector
     const handleDateChange = (startDate, endDate) => {
         setFormData((prev) => ({
             ...prev,
-
-            // Format to YYYY-MM-DD
             startDate: startDate ? startDate.toISOString().split("T")[0] : "",
             endDate: endDate ? endDate.toISOString().split("T")[0] : ""
         }));
     }
 
-    const handleSubmit = async(e) => {
+    // Handle form submission (create or update itinerary)
+    const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             if (selectedItinerary) {
                 // Update existing itinerary
-                await axios.put(`${API}/itinerary/${selectedItinerary.id}`, formData);
+                await axios.patch(`${API}/itinerary/${selectedItinerary.id}`, formData);
             } else {
                 // Create new itinerary
                 await axios.post(`${API}/itinerary`, formData);
             }
             onFormSubmit();
-        } catch(error) {
+        } catch (error) {
             console.log("Error submitting itinerary:", error);
         }
     }

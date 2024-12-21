@@ -8,9 +8,7 @@ export function HomeSection() {
             {/* Content section */}
             <div className="home-content">
                 <h1 className="home-title">MeetMyRoute</h1>
-                <p className="home-subtitle">
-                    Plan your journey, meet fellow travelers, and adventure together!
-                </p>
+                <p className="home-subtitle">Plan your journey, meet fellow travelers, and adventure together!</p>
                 <div className="home-buttons">
                     <a href="/login" className="home-button home-login">Login</a>
                     <a href="/signup" className="home-button home-signup">Sign Up</a>

@@ -1,69 +1,115 @@
 .connects-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 15px;
-    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    margin: 0 auto;
+    max-width: 100%;
 }
 
 .connects-card {
-    border-radius: 8px;
-    padding: 15px;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: 1rem;
+    padding: 1rem;
     background-color: var(--background-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--third-color);
 }
 
 .connects-card-img {
-    width: 100px;
-    height: 100px;
+    width: 10px;
+    height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 10px;
+}
+
+.connects-card-details {
+    flex: 1;
 }
 
 .connects-card-details h3 {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
-
-.connects-card-details p {
-    margin: 5px 0;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-.connects-card button {
-    background-color: var(--primary-color);
+    font-size: 1rem;
+    margin: 0 0 0.5rem;
     color: var(--text-color);
+}
+
+.social-media-link {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.social-media-link:hover {
+    text-decoration: underline;
+}
+
+.connection-type {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.view-profile-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    background-color: var(--second-color);
     border: none;
-    padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.connects-card button:hover {
-    background: var(--second-color);
+.view-profile-button:hover {
+    background-color: var(--primary-color);
 }
 
-/* Tablet views */
+.loading-message,
+.error-message,
+.no-connects-message {
+    text-align: center;
+    font-size: 1rem;
+    color: var(--third-color);
+}
+
+/* Media query for tablets */
 @media (min-width: 768px) {
     .connects-list {
         flex-direction: row;
         flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1.5rem;
     }
 
     .connects-card {
-        width: calc(50% - 30);
-        margin: 10px;
+        flex: 1 1 calc(50% - 1rem);
+        max-width: calc(50% - 1rem);
+    }
+
+    .connects-card-img {
+        width: 60px;
+        height: 60px;
     }
 }
 
-/* Desktop views */
+/* Media query for desktops */
 @media (min-width: 1024px) {
     .connects-card {
-        width: calc(33.33% - 30px);
+        flex: 1 1 calc(33.33% - 1rem);
+        width: calc(33.33% - 1rem);
+    }
+
+    .connects-card-img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .connects-card-details h3 {
+        font-size: 1.2rem;
+    }
+
+    .view-profile-button {
+        font-size: 1rem;
+        padding: 0.75rem 1.25rem;
     }
 }

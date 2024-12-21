@@ -9,12 +9,10 @@ export function ItineraryList() {
     const [itineraries, setItineraries] = useState([]);
     const [selectedItinerary, setSelectedItinerary] = useState(null);
     const [showEditForm, setShowEditForm] = useState(false);
-
-    // Toggle state
+    // Toggle between detailed/simplified views
     const [isDetailedView, setIsDetailedView] = useState(true);
 
-    // Fetch itineraries from API
-    const fetchItineraries = async() => {
+    const fetchItineraries = async () => {
         try {
             const jwt = localStorage.getItem("jwt");
             if (!jwt) {
@@ -28,33 +26,34 @@ export function ItineraryList() {
                 }
             });
             setItineraries(response.data);
-        } catch(error) {
+        } catch (error) {
             console.log("Error fetching itineraries:", error);
         }
     }
 
-    // Fetch itineraries when the view changes
+    // Fetch itineraries whenever the view changes
     useEffect(() => {
         fetchItineraries();
     }, [isDetailedView]);
 
-    // Toggle view handler
+    // Toggle between detailed and simplified views
     const handleToggleView = () => {
         setIsDetailedView((prev) => !prev);
     }
 
-    // Edit itinerary handler
+    // Handle edit action
     const handleEdit = (itinerary) => {
         setSelectedItinerary(itinerary);
         setShowEditForm(true);
     }
 
-    // Delete itinerary handler
-    const handleDelete = async(id) => {
+    // Handle delete action
+    const handleDelete = async (id) => {
         try {
             await axios.delete(`${API}/itinerary/:${id}`);
+            // Refresh list after deletion
             fetchItineraries();
-        } catch(error) {
+        } catch (error) {
             console.log("Error deleting itinerary:", error);
         }
     }
@@ -65,6 +64,7 @@ export function ItineraryList() {
             <button onClick={handleToggleView} className="toggle-view-btn">
                 {isDetailedView ? "Show Simplified View" : "Show Detailed View"}
             </button>
+
             {showEditForm ? (
                 <ItineraryForm
                     selectedItinerary={selectedItinerary}
@@ -75,14 +75,13 @@ export function ItineraryList() {
                     onCancel={() => setShowEditForm(false)}
                 />
             ) : (
-
                 <div className="itinerary-cards">
                     {itineraries.map((itinerary) => (
                         <div key={itinerary.id} className="itinerary-card">
                             <p className="itinerary-destination">Destination: {itinerary.destination}</p>
                             <p className="itinerary-dates">Travel dates: {itinerary.startDate} - {itinerary.endDate}</p>
                             
-                            {/* Render full details if in detailed view */}
+                            {/* Render detailed info if in detailed view */}
                             {isDetailedView && (
                                 <>
                                     <p className="itinerary-accommodation">Accommodation: {itinerary.accommodation}</p>
@@ -94,6 +93,7 @@ export function ItineraryList() {
                                     </ul>
                                 </>
                             )}
+                            
                             <div className="itinerary-actions">
                                 <button className="edit-btn" onClick={() => handleEdit(itinerary)}>Edit</button>
                                 <button className="delete-btn" onClick={() => handleDelete(itinerary.id)}>Delete</button>
