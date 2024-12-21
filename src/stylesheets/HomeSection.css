@@ -97,12 +97,16 @@
 
     .home-content {
         flex: 1;
-        padding-right: 2rem;
+        padding-left: 6rem;
     }
 
     .home-buttons {
         gap: 2rem;
         display: flex;
-        justify-content: left;
+        justify-content: flex-start;
+    }
+
+    .home-image {
+        padding-right: 4rem;
     }
 }

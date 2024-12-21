@@ -1,96 +1,101 @@
 .itinerary-list {
     padding: 1rem;
+    background-color: var(--background-color);
 }
 
 .itinerary-title {
+    font-size: 1.5rem;
     text-align: center;
     margin-bottom: 1rem;
 }
 
 .toggle-view-btn {
-    padding: 8px 16px;
-    margin-bottom: 16px;
-    background-color: var(--primary-color);
-    color: var(--text-color);
+    display: block;
+    margin: 0 auto 1rem auto;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
     border: none;
     border-radius: 4px;
+    background-color: var(--third-color);
+    color: var(--text-color);
     cursor: pointer;
-    font-size: 16px;
 }
 
 .toggle-view-btn:hover {
-    background-color: var(--second-color);
+    background-color: var(--primary-color);
 }
 
 .itinerary-cards {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: 1rem;
 }
 
 .itinerary-card {
-    border: 1px solid var(--primary-color);
-    border-radius: 8px;
     padding: 1rem;
     background-color: var(--second-color);
-    margin-bottom: 16px;
-}
-
-.itinerary-card p {
-    margin: 8px 0;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 2px 4px var(--third-color);
 }
 
 .itinerary-destination,
 .itinerary-dates,
 .itinerary-accommodation {
-    margin: 0.5rem 0;
+    margin: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 .itinerary-activities {
     margin: 0.5rem 0;
-    padding-left: 1rem;
+    padding-left: 1.2rem;
+}
+
+.itinerary-activities li {
+    font-size: 0.9rem;
 }
 
 .itinerary-actions {
     display: flex;
-    justify-content: space-between;
+    gap: 0.5rem;
+    justify-content: flex-end;
     margin-top: 1rem;
 }
 
 .edit-btn,
 .delete-btn {
     padding: 0.5rem 1rem;
+    font-size: 0.9rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .edit-btn {
+    background-color: var(--second-color);
+    color: var(--text-color);
+}
+
+.delete-btn {
     background-color: var(--third-color);
     color: var(--background-color);
 }
 
-.delete-btn {
+.edit-btn:hover,
+.delete-btn:hover {
     background-color: var(--primary-color);
-    color: var(--background-color);
 }
 
-/* Tablet view */
+/* Media query for tablets */
 @media (min-width: 768px) {
     .itinerary-cards {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 1.5rem
-    }
-
-    .itinerary-card {
-        flex: 1 1 calc(50% - 1.5rem);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-/* Desktop view */
+/* Media query for desktops */
 @media (min-width: 1024px) {
-    .itinerary-card {
-        flex: 1 1 calc(33.33% - 1.5rem);
+    .itinerary-cards {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
