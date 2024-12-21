@@ -1,26 +1,29 @@
-.connect-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text-color);
-    background-color: var(--primary-color);
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+.connect-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem auto;
     width: 100%;
     max-width: 300px;
-    margin: 10px auto;
 }
 
-.connect-button:hover {
+.connect-button {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    text-align: center;
     background-color: var(--second-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.connect-button:active {
-    transform: scale(0.95);
+.connect-button:hover:not(:disabled) {
+    background-color: var(--primary-color);
+    transform: scale(1.05);
 }
 
 .connect-button:disabled {
@@ -29,25 +32,40 @@
     cursor: not-allowed;
 }
 
-.connect-button:disabled:hover {
-    background-color: grey;
+.connect-button.loading {
+    background-color: var(--third-color);
+    color: var(--text-color);
 }
 
-/* Tablet views */
+.connect-button-success {
+    background: green;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Media query for tablets */
 @media (min-width: 768px) {
     .connect-button {
-        width: auto;
-        max-width: 200px;
-        font-size: 1.1rem;
-        padding: 12px 25px;
+        font-size: 1.125rem;
+    }
+
+    .connect-button-container {
+        max-width: 400px;
     }
 }
 
-/* Desktop views */
+/* Media query for desktops */
 @media (min-width: 1024px) {
+    .connect-button-container {
+        max-width: 500px;
+    }
+
     .connect-button {
-        max-width: 180px;
         font-size: 1rem;
-        padding: 10px 20px;
+        padding: 1rem 1.5rem;
     }
 }

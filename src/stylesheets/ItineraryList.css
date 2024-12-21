@@ -78,7 +78,7 @@
 
 .delete-btn {
     background-color: var(--third-color);
-    color: var(--background-color);
+    color: var(--text-color);
 }
 
 .edit-btn:hover,

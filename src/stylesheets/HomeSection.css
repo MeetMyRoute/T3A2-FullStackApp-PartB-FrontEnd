@@ -46,7 +46,7 @@
 
 .home-signup {
     background-color: var(--third-color);
-    color: var(--background-color);
+    color: var(--text-color);
 }
 
 .home-button:hover {
