@@ -30,6 +30,7 @@
     font-weight: 500;
     margin-bottom: 8px;
     text-align: left; 
+    color: var(--primary-color);
 }
 
 .signup-form input,
@@ -44,6 +45,7 @@
     min-width: 300px;
     border-radius: 4px;
     box-sizing: border-box;
+    text-align: center;
 }
 
 .signup-form textarea:focus {
@@ -105,7 +107,7 @@
 }
 
 .login-link:hover {
-    color: darkblue; 
+    color: var(--primary-color); 
     text-decoration: underline;
 }
 
@@ -124,6 +126,7 @@
     .signup-form button[type="submit"] {
         font-size: 18px;
         padding: 10px 20px;
+        font-family: inherit;
     }
 }
 

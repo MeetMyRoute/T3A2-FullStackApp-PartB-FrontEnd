@@ -57,7 +57,7 @@ export default function ProfileContainer() {
     }
 
     if (error) {
-        return <p className="error-message">{error}</p>
+        return <p className="errorMessage">{error}</p>
     }
     
     // Render ProfileForm component if isEditing is set to true

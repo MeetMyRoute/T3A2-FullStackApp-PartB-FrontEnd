@@ -7,36 +7,44 @@
     margin-top: 0.2em;
 }
 
-.backButton,
-.editButton,
-.messageButton {
-    padding: 8px 16px;
-    margin: 16px;
-    background-color: var(--primary-color);
+.profileContainer button {
+    background-color: var(--second-color);
     color: var(--text-color);
     font-family: inherit;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    align-self: flex-end;
-    width: 15%;
+    margin: 0.2rem;
+    padding: 1rem;
+    font-size: 1.3rem;
+    overflow: hidden;
+    width: 20dvw;
+    text-align: center;
 }
 
-.backButton:hover,
-.editButton:hover,
-.messageButton:hover {
-    background-color: var(--second-color);
+.profileContainer .backButton {
+    align-self: flex-end;
+}
+
+.profileContainer .editButton {
+    align-self: center;
+}
+
+.profileContainer button:hover {
+    background-color: var(--primary-color);
 }
 
 /* Tablet view */
-/* @media (min-width: 768px) {
-} */
+@media (min-width: 768px) {
+    .profileContainer button {
+        font-size: 1.5rem;
+    } 
+}
 
 /* Desktop view */
 
 @media (min-width: 1024px) {
-    .profileContainer {
-        max-width: 75dvw;
-        margin: 0 auto;
+    .profileContainer button {
+        font-size: 1.6rem;
     }
 }

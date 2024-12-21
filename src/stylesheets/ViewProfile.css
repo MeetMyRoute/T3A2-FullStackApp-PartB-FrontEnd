@@ -6,7 +6,8 @@
     background-color: var(--background-color);
     margin: 1em;
     margin-top: 0.2em;
-    /* overflow: auto;  */
+    font-size: 1.3rem;
+    overflow: auto; 
 }
 
 .profileViewLeft,
@@ -17,19 +18,18 @@
     align-items: center;
 }
 
-#viewName {
+.profileView h2,
+.profileView h3 {
     text-align: center;
-    margin-bottom: 0;
+    font-weight: 600;
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: var(--text-color);
 }
 
-#viewLocation {
-    text-align: center;
-    margin-top: 0;
-    margin-bottom: 0.1em;
-}
-
-#viewStatus {
-    text-align: center;
+.profileView h3 {
+    font-size: 1.7rem;
 }
 
 #viewProfilePic {
@@ -37,47 +37,56 @@
     max-height: 15em;
 }
 
-.viewTravelPrefAndGoals > p {
-    margin-top: 0.1em;
-}
-
-.itineraryDestination {
-    margin: 0.2em;
-}
-
-.itineraryDates {
-    margin: 0.2em;
+.viewTravelPrefAndGoals,
+.viewItineraries {
+    width: 90dvw;
+    max-width: 80%;
+    margin-top: 0.2em;
     margin-bottom: 0.5em;
+    padding: 0.5em 1em;
+    background-color: var(--second-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+}
+
+.viewTravelPrefAndGoals ul {
+    padding-left: 1.2em;
 }
 
 #viewSocialMedia {
-    margin-top: 1em;
     color: var(--text-color);
     cursor: pointer;
-}
-
-.editButton,
-.messageButton {
-    padding: 8px 16px;
-    margin: 16px;
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    font-family: inherit;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-.editButton:hover,
-.messageButton:hover {
-    background-color: var(--second-color);
-}
-
-.error {
+    text-decoration: none;
+    padding: 0.5em 1em;
     text-align: center;
+    border: 1px solid var(--text-color);
+    border-radius: 10px;
+    width: 90dvw;
+    max-width: 80%;
+    margin-top: 0.2em;
+    margin-bottom: 0.5em;
+}
+
+#viewSocialMedia:hover {
+    color: var(--primary-color); 
+    text-decoration: underline;
+    border: 1px solid var(--second-color);
 }
 
 /* Tablet view */
 @media (min-width: 768px) {
+    .profileView {
+        font-size: 1.5rem;
+    }
+
+    .profileView h2 {
+        font-size: 2.7rem;
+    }
+
+    .profileView h3 {
+        font-size: 2.2rem;
+    }
+    
     #viewProfilePic {
         max-width: 50dvw;
         max-height: 15em;
@@ -92,6 +101,7 @@
         align-items: center;
         gap: 2rem; 
         margin: 7em;
+        font-size: 1.6rem;
     }
 
     .profileViewLeft, .profileViewRight {
@@ -99,6 +109,14 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .profileView h2 {
+        font-size: 3rem;
+    }
+
+    .profileView h3 {
+        font-size: 2.5rem;
     }
 
     #viewProfilePic {

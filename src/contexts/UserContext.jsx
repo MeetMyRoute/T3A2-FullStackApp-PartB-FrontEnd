@@ -15,6 +15,7 @@ export function UserProvider({ children }) {
 
   const logout = () => {
     setUser(null);
+    localStorage.removeItem("userId");
     localStorage.removeItem("jwt");
   };
 

@@ -8,7 +8,6 @@ const API = import.meta.env.VITE_API_URL;
 
 export default function ProfileForm({profile, onFormSubmit}) {
     const [tempProfileData, setTempProfileData] = useState({});
-    const [error, setError] = useState("");
     const { userId } = useParams();
 
     // Handle changes in input fields
@@ -97,7 +96,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             name="name"
             id="editName"
             defaultValue={profile.name}
-            onChange={(e)=>{handleChangeGeneric(e)}}
+            onChange={(e) => {handleChange(e)}}
             required />
             
             {/* Location input */}
@@ -107,7 +106,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             name="location"
             id="editLocation"
             defaultValue={profile.location}
-            onChange={(e)=>{handleChange(e)}}
+            onChange={(e) => {handleChange(e)}}
             required />
 
             {/* Status dropdown */}
@@ -116,7 +115,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             name="status"
             className="editStatusOptions"
             defaultValue={profile.status}
-            onChange={(e)=>{handleChange(e)}}
+            onChange={(e) => {handleChange(e)}}
             required > 
                 <option value={profile.status}>{profile.status}</option>
                 {profile.status !== "Private" ? <option value="Private">Private</option> : null}
@@ -131,7 +130,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             name="profilePic"
             id="editProfilePic"
             accept="image/*"
-            onChange={(e)=>{handleChange(e)}} />
+            onChange={(e) => {handleChange(e)}} />
             {tempProfileData.profilePic && <img src={tempProfileData.profilePic} alt="Profile Picture Preview" id="profilePicPreview" />}
 
             {/* Travel preferences and goals input */}
@@ -162,9 +161,9 @@ export default function ProfileForm({profile, onFormSubmit}) {
             name="socialMediaLink"
             id="editSocialMediaLink"
             defaultValue={profile.socialMediaLink}
-            onChange={(e)=>{handleChange(e)}} />
+            onChange={(e) => {handleChange(e)}} />
 
-            <div className="formActions">
+            <div className="profileForm formActions">
                 <button type="submit" className="submitButton">Save</button>
             </div>
         </form>
