@@ -8,12 +8,13 @@ import { ConnectButton } from "./ConnectButton";
 
 const API = import.meta.env.VITE_API_URL;
 
-export default function ProfileContainer({ profileData }) {
+export default function ProfileContainer() {
     const [isEditing, setIsEditing] = useState(false);
     const [profileData, setProfileData] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const { userId } = useParams();
+
 
     // Get userId from local storage
     const loggedInUserId = localStorage.getItem("userId");
@@ -76,11 +77,9 @@ export default function ProfileContainer({ profileData }) {
                 <button className="editButton" onClick={() => setIsEditing(true)}>Edit Profile</button>
             ) : (
                 <ConnectButton 
-                    recipientId={profileData.userId}
+                    recipientId={loggedInUserId}
                     recipientName={profileData.name}
                     status={profileData.status}
-                    
-                    // Disable if already connected
                     isDisabled={profileData.hasConnected}
                 />
             )}
