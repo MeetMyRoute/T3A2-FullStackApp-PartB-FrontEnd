@@ -53,6 +53,10 @@
     padding-left: 1.2em;
 }
 
+.itineraryDestination {
+    margin-top: 0.8em;
+}
+
 #viewSocialMedia {
     color: var(--text-color);
     cursor: pointer;

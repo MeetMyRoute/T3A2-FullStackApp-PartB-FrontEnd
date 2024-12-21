@@ -1,7 +1,6 @@
 import "../stylesheets/ViewProfile.css"
 
 export default function ViewProfile({profile}) {
-    console.log(profile)
         return (
             <div className="profileView">
                 <section className="profileViewLeft">
@@ -35,14 +34,16 @@ export default function ViewProfile({profile}) {
                         {profile.itineraries.map((itinerary, index) => {
                             return <div key={index} className="itineraryCard">
                                 <p className="itineraryDestination">Destination: {itinerary.destination} <br /></p>
-                                <p className="itineraryDates">Dates: {itinerary.startDate} - {itinerary.endDate}</p>
+                                <p className="itineraryDates">
+                                    Travel Dates: {new Date(itinerary.startDate).toLocaleDateString()} - {new Date(itinerary.endDate).toLocaleDateString()}
+                                </p>
                             </div>
                         })}
                     </div> :
                     null}
 
                     {/* Social media link display*/}
-                    {profile.socialMediaLink && <a id="viewSocialMedia" href={profile.socialMediaLink}>{profile.socialMediaLink}</a>} <br />
+                    {profile.socialMediaLink && <a id="viewSocialMedia" href={profile.socialMediaLink}>{profile.socialMediaLink}</a>}
                 </section>
             </div>
         )
