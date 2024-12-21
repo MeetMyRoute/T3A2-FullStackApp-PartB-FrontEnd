@@ -81,7 +81,7 @@ export function NavBar() {
     }
 
     return (
-        <nav className="navbar">https://www.netflix.com/browse
+        <nav className="navbar">
             <Logo onClick={closeMenu} />
 
             {/* Hamburger icon for smaller screens*/}
