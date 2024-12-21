@@ -7,6 +7,7 @@
     background-color: var(--background-color);
     color: var(--text-color);
     min-height: 86vh;
+    justify-content: center;
 }
 
 .home-title {
@@ -83,7 +84,6 @@
     }
 
     .home-image {
-        flex: 1;
         margin-top: 0;
     }
 }
@@ -93,20 +93,16 @@
     .home-section {
         flex-direction: row;
         text-align: left;
+        justify-content: space-evenly;
     }
 
     .home-content {
-        flex: 1;
-        padding-left: 6rem;
+        padding-right: 2rem;
     }
 
     .home-buttons {
         gap: 2rem;
         display: flex;
         justify-content: flex-start;
-    }
-
-    .home-image {
-        padding-right: 4rem;
     }
 }
