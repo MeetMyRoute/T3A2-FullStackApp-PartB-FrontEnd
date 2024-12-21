@@ -52,7 +52,7 @@ return (
 
       {errorMessage && <div className="error-message">{errorMessage}</div>}
       
-      <form onSubmit={handleLogin}>
+      <form className="login-form" onSubmit={handleLogin}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label"></label>
           <input 

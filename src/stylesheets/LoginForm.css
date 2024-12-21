@@ -50,9 +50,9 @@ body {
   margin-bottom: 40px;
 }
   
-form input[type='email'],
-form input[type='password'],
-form input[type='text'] {
+.login-form input[type='email'],
+.login-form input[type='password'],
+.login-form input[type='text'] {
   width: 100%;
   padding: 14px;
   margin-bottom: 16px;
@@ -64,9 +64,9 @@ form input[type='text'] {
   font-family: "Poppins", sans-serif; 
 }
 
-form input[type='email']:focus,
-form input[type='password']:focus,
-form input[type='text']:focus {
+.login-form input[type='email']:focus,
+.login-form input[type='password']:focus,
+.login-form input[type='text']:focus {
   background-color: #f8f1ed;
   border-color: #FF6600;
 }
@@ -84,7 +84,7 @@ form input[type='text']:focus {
   outline: none;
 }
   
-form button[type='submit'] {
+.login-form button[type='submit'] {
   width: 100%;
   padding: 13px;
   border: none;
@@ -97,7 +97,7 @@ form button[type='submit'] {
   transition: background-color 0.3s ease;
 }
 
-form button[type='submit']:hover {
+.login-form button[type='submit']:hover {
   background-color: #E67451; 
 }
   
@@ -168,9 +168,9 @@ form button[type='submit']:hover {
     font-size: 4rem;
   }
 
-  form input[type="email"],
-  form input[type="password"],
-  form input[type="text"] {
+  .login-form input[type="email"],
+  .login-form input[type="password"],
+  .login-form input[type="text"] {
     padding: 18px;
   }
 }
@@ -184,9 +184,9 @@ form button[type='submit']:hover {
     font-size: 4.5rem;
   }
 
-  form input[type="email"],
-  form input[type="password"],
-  form input[type="text"] {
+  .login-form input[type="email"],
+  .login-form input[type="password"],
+  .login-form input[type="text"] {
     padding: 20px;
   }
 
