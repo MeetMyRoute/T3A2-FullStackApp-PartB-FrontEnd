@@ -21,7 +21,7 @@ export default function ProfileContainer() {
     // Determine if this is the logged-in user's profile
     const isOwnProfile = loggedInUserId === userId;
 
-    // Fetch and set profile data based on userId
+    // Fetch and set profile data based on user ID
     async function fetchAndSetProfileData(userId) {
         try {
             const jwt = localStorage.getItem("jwt");
@@ -41,11 +41,13 @@ export default function ProfileContainer() {
         }
     }
 
+    // Set isEditing to false and fetch and set profile data on submit
     const onSubmit = () => {
         setIsEditing(false);
         fetchAndSetProfileData(userId);
     }
 
+    // Update the profile data state when the user ID changes
     useEffect(() => {
         fetchAndSetProfileData(userId);
     }, [userId]);
@@ -58,6 +60,7 @@ export default function ProfileContainer() {
         return <p className="error-message">{error}</p>
     }
     
+    // Render ProfileForm component if isEditing is set to true
     if (isEditing) {
         return (
             <div className="profileContainer">
@@ -67,7 +70,7 @@ export default function ProfileContainer() {
         ) 
         
     } else {
-        console.log(profileData)
+        // Render ViewProfile component if isEditing is set to false
         return <div className="profileContainer">
             <ViewProfile profile={profileData} />
             {isOwnProfile ? (

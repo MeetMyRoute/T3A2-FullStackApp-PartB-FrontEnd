@@ -11,11 +11,11 @@ export default function ProfileForm({profile, onFormSubmit}) {
     const [error, setError] = useState("");
     const { userId } = useParams();
 
+    // Handle changes in input fields
     const handleChange = async (e) => {
         const {name, value, type, files} = e.target;
         if (type === "file") {
             const profilePic = files[0];
-
             if (profilePic) {
                 // Convert the profile picture image to base64
                 const image = await convertImageToBase64(profilePic);
@@ -34,6 +34,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
         }    
     }
 
+    // Handle add a travel preference and goal item
     const handleAddTravelPrefAndGoals = () => {
         setTempProfileData((prev) => ({
             ...prev,
@@ -41,6 +42,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
         }));
     }
 
+    // Handle edit an existing travel preference and goal item
     const handleChangeTravelPrefAndGoals = (index, value) => {
         const updatedTravelPrefAndGoals = [...tempProfileData.travelPreferencesAndGoals];
         updatedTravelPrefAndGoals[index] = value;
@@ -50,6 +52,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
         }));
     }
 
+    // Handle remove a travel preference and goal item
     const handleRemoveTravelPrefAndGoals = (index) => {
         const updatedTravelPrefAndGoals = tempProfileData.travelPreferencesAndGoals.filter((_, i) => i !== index);
 
@@ -59,6 +62,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
         }));
     }
     
+    // Update the profile data on form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -77,6 +81,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
         }
     }
 
+    // Update the form data state when the profile data changes
     useEffect(() => {
         setTempProfileData(profile);
     }, [profile])
@@ -85,6 +90,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
         <form className="profileForm" onSubmit={handleSubmit}>
             <h2>Edit Profile</h2>
 
+            {/* Name input */}
             <label htmlFor="name">Name:</label>
             <input
             type="text"
@@ -94,6 +100,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             onChange={(e)=>{handleChangeGeneric(e)}}
             required />
             
+            {/* Location input */}
             <label htmlFor="location">Location:</label>
             <input
             type="text"
@@ -103,6 +110,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             onChange={(e)=>{handleChange(e)}}
             required />
 
+            {/* Status dropdown */}
             <label htmlFor="status">Status:</label>
             <select
             name="status"
@@ -116,6 +124,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
                 {profile.status !== "Local" ? <option value="Local">Local</option> : null}
             </select>
 
+            {/* Profile picture input */}
             <label htmlFor="profilePic">Profile Picture:</label>
             <input
             type="file"
@@ -125,6 +134,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             onChange={(e)=>{handleChange(e)}} />
             {tempProfileData.profilePic && <img src={tempProfileData.profilePic} alt="Profile Picture Preview" id="profilePicPreview" />}
 
+            {/* Travel preferences and goals input */}
             <label htmlFor="travelPreferencesAndGoals">Travel Preferences & Goals:</label>
             {tempProfileData.travelPreferencesAndGoals?.map((item, index) => {
                 return (
@@ -145,6 +155,7 @@ export default function ProfileForm({profile, onFormSubmit}) {
             className="addTravelPrefAndGoalsButton"
             onClick={handleAddTravelPrefAndGoals}>Add</button>
 
+            {/* Social media link input */}
             <label htmlFor="socialMediaLink">Social Media:</label>
             <input
             type="text"
