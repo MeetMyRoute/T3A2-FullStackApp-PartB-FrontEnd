@@ -8,7 +8,7 @@ import { ConnectButton } from "./ConnectButton";
 
 const API = import.meta.env.VITE_API_URL;
 
-export default function ProfileContainer() {
+export default function ProfileContainer({ profileData }) {
     const [isEditing, setIsEditing] = useState(false);
     const [profileData, setProfileData] = useState({});
     const [loading, setLoading] = useState(true);
@@ -52,10 +52,10 @@ export default function ProfileContainer() {
         fetchAndSetProfileData(userId);
     }, [userId]);
 
+    // Conditional rendering for loading or error states
     if (loading) {
-        return <p>Loading...</p>
+        return <p className="loading-message">Loading...</p>
     }
-
     if (error) {
         return <p className="errorMessage">{error}</p>
     }
@@ -68,7 +68,6 @@ export default function ProfileContainer() {
                 <ProfileForm profile={profileData} onFormSubmit={onSubmit} />
             </div>
         ) 
-        
     } else {
         // Render ViewProfile component if isEditing is set to false
         return <div className="profileContainer">

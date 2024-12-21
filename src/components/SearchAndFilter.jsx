@@ -27,8 +27,8 @@ export function SearchAndFilter() {
 
             // API call to /search endpoint
             const response = await axios.get(`${API}/search`, {
-                Authorization: {
-                    headers: `Bearer ${jwt}`
+                headers: {
+                    Authorization: `Bearer ${jwt}`
                 },
                 params: {
                     destination,
@@ -36,10 +36,8 @@ export function SearchAndFilter() {
                     endDate: endDate ? endDate.toISOString() : undefined
                 }
             });
-            const data = response.data.data;
-            setResults(data);
-        } catch(error) {
-            console.log(error);
+            setResults(response.data.data || []);
+        } catch (error) {
             setError(err.response?.data?.message || "Failed to fetch search results. Please try again");
         } finally {
             setLoading(false);
@@ -55,7 +53,6 @@ export function SearchAndFilter() {
     return (
         <div className="search-and-filter">
             <div className="search-container">
-
                 {/* Destination input */}
                 <label htmlFor="destination">Destination:</label>
                 <input
@@ -100,14 +97,11 @@ export function SearchAndFilter() {
                                     </p>
                                 </>
                             )}
-                            {/* Update when profile feature is merged */}
                             <button>View Profile</button>
                             <ConnectButton
                                 recipientId={result.userId}
                                 recipientName={result.user}
                                 status={result.status}
-                                
-                                // Disable if already connected
                                 isDisabled={user.hasConnected}
                             />
                         </div>
