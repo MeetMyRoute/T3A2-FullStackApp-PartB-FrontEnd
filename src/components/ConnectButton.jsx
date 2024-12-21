@@ -4,7 +4,7 @@ import "../stylesheets/ConnectButton.css";
 
 const API = import.meta.env.VITE_API_URL;
 
-export function ConnectButton({ recipientId, recipientName, status, isDisabled }) {
+export function ConnectButton({ recipientId, isDisabled }) {
     // State management
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
